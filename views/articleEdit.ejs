@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Article</title>
+  <style>
+    @font-face {
+      font-family: 'BMJUA';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+  
+    body {
+      font-family: 'Reddit', 'BMJUA';
+      margin: 10px;
+      padding: 10px;
+      background-color: #f4f4f4;
+      color: #000000;
+    }
+
+    h1 {
+    background-color: #ee6e06;
+    color: #fff;
+    padding: 5px;
+    }
+    
+    nav {
+      text-align: center;
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      margin: 10px;
+    }
+    .login {
+      text-decoration: none;
+      font-weight: bold;
+      color: #ee6e06;
+    }
+    nav button , button {
+      font-size: 16px;
+      font-family: 'BMJUA';
+      text-decoration: none;
+      color: #333;
+      margin: 5px; 
+      padding: 5px;
+      border: 2px solid #ee6e06;
+      border-radius: 5px;
+      background-color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    nav button:hover , button:hover {
+      background-color: #ee6e06;
+    }
+
+    .logo {
+      max-width: 200px; 
+      height: auto;
+    }
+
+    .centered-buttons {
+      text-align: center;
+    }
+
+    form {
+      display: inline-block;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo">
+    <div>
+      <a href="/"><button>Home</button></a>
+      <a href="/debugPage"><button>Debug DB</button></a>
+      <% if(username) {%>
+        You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
+     <form action="/users/logout" method="post">
+          <button type="submit">Logout</button></form>
+      <% } else { %>
+        <a href="/users/login"><button>Login</button></a>
+        <%}%>
+        <a href="/users/register"><button>Register</button></a>
+    </div>
+  </nav>
+
+  <header>Edit Article</header><br>
+  
+  <form action="/articles/edit/<%= id %>" method="post">
+    Title:<br> <input type="text" name="title" value="<%= detail[0].title %>"> <br>
+    Link:<br> <input type="text" name="link" value="<%= detail[0].link %>"> <br>
+    Contents:<br> <textarea name="contents" cols="25" rows="5"><%= detail[0].text %></textarea> <br>
+    <div class="centered-buttons">
+      <button type="submit">Edit the Article</button>
+      <button type="button" onclick="location.href='/articles/show/<%= id %>'">Never Mind!</button>
+    </div>
+  </form>
+</body>
+</html>

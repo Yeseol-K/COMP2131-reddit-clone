@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment</title>
+    <style>
+    @font-face {
+      font-family: 'BMJUA';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+  
+    body {
+      font-family: 'Reddit', 'BMJUA';
+      margin: 10px;
+      padding: 10px;
+      background-color: #f4f4f4;
+      color: #000000;
+    }
+
+    h1 {
+    color: #ee6e06;
+    padding: 5px;
+    }
+    
+    nav {
+      text-align: center;
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      margin: 10px;
+    }
+
+    .login, .comment {
+      text-decoration: none;
+      font-weight: bold;
+      color: #ee6e06;
+    }
+
+    nav button, button {
+      font-size: 16px;
+      font-family: 'BMJUA';
+      text-decoration: none;
+      color: #333;
+      margin: 5px; 
+      padding: 5px;
+      border: 2px solid #ee6e06;
+      border-radius: 5px;
+      background-color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    nav button:hover , button:hover {
+      background-color: #ee6e06;
+    }
+
+    .logo {
+      max-width: 200px; 
+      height: auto;
+    }
+
+    .centered-buttons {
+      text-align: center;
+    }
+
+    form {
+      display: inline-block;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo">
+    <div>
+      <a href="/"><button>Home</button></a>
+      <a href="/debugPage"><button>Debug DB</button></a>
+      <% if(username) {%>
+        You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
+     <form action="/users/logout" method="post">
+          <button type="submit">Logout</button></form>
+      <% } else { %>
+        <a href="/users/login"><button>Login</button></a>
+        <%}%>
+        <a href="/users/register"><button>Register</button></a>
+    </div>
+  </nav>
+
+  <a href="/subs/show/<%= detail.sub_name %>" class="a">back to <%= detail.sub_name %></a>
+
+  <h1><%= detail.title %></h1>
+  <p><a href="<%= detail.link %>"><%= detail.link %></a></p>
+  <p>posted by <a href=""><%= detail.creator.username %></a></p>
+  <p><%= detail.text %></p>
+  <% if(username === detail.creator.username) { %>
+    <a href="/articles/edit/<%= detail.id  %>"><button>Edit</button></a>
+    <a href="/articles/delete/<%= detail.title %>"><button>Delete</button></a>
+  <% } %>
+
+  <% if (comments.length > 0) { %>
+    <h1>Comments</h1>
+    <%comments.forEach(comment => { %>
+      <p>
+        <a href="/users/profile/<%= comment.creator.username %>" class="comment"><%= comment.creator.username %></a>
+        <a href="/comments/show/<%= comment.id %>">"<%= comment.text %>"</a>
+        <%= new Date(comment.ts) %>
+        
+      <% if(username === comment.creator.username) { %>
+        <a href="/comments/edit/<%= comment.id  %>" class="comment">Edit</a>
+        <a href="/comments/delete/<%= comment.id %>"class="comment">Delete</a>
+      </p>
+      <% } %>
+    <% }); %>
+  <% } %> <br>
+
+        <h1>New comment</h1>
+        <form action="/comments/create/<%= detail.id  %>" method="post">
+          Comments:<br> <textarea name="comment" cols="25" rows="5"></textarea>
+          <br>
+          <button type="submit">New comment</button>
+        </form>
+
+      </body>
+</html>

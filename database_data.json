@@ -1,0 +1,131 @@
+{
+  "subs": {
+    "dogpics": {
+      "name": "dogpics",
+      "creator_id": "5669"
+    },
+    "catpics": {
+      "name": "catpics",
+      "creator_id": "1793"
+    },
+    "test": {
+      "name": "test",
+      "creator_id": "1793"
+    }
+  },
+  "articles": {
+    "1240": {
+      "id": "1240",
+      "sub_name": "dogpics",
+      "title": "Hallo Fren",
+      "creator_id": "9457",
+      "link": "https://i.redd.it/akpraooq3nw91.jpg",
+      "text": "Underrated, overcrazy"
+    },
+    "1628": {
+      "id": "1628",
+      "sub_name": "dogpics",
+      "title": "goldie",
+      "creator_id": "5669",
+      "link": "https://i.redd.it/ts1jpcw2gvr01.jpg",
+      "text": "I stole this picture from reddit"
+    },
+    "5602": {
+      "id": "5602",
+      "sub_name": "catpics",
+      "title": "Prelude to a homicide",
+      "creator_id": "1793",
+      "link": "https://i.redd.it/wsuyo83dy4ic1.jpeg"
+    },
+    "6245": {
+      "id": "6245",
+      "sub_name": "test",
+      "title": "test",
+      "creator_id": "1793",
+      "link": "test",
+      "text": "test123"
+    },
+    "0478": {
+      "id": "0478",
+      "sub_name": "catpics",
+      "title": "filing system for cats",
+      "creator_id": "9457",
+      "link": "https://preview.redd.it/aik7h7zqp1ic1.jpg?width=3024&format=pjpg&auto=webp&s=13f532faf8c8e626b2e76938be6cb4eabb58e352"
+    }
+  },
+  "comments": {
+    "3201": {
+      "id": "3201",
+      "article_id": "6245",
+      "creator_id": "1793",
+      "ts": 1708753886539,
+      "text": "456"
+    },
+    "3790": {
+      "id": "3790",
+      "article_id": "1628",
+      "creator_id": "1793",
+      "ts": 1708754246846,
+      "text": "ha lol got em"
+    },
+    "5515": {
+      "id": "5515",
+      "article_id": "1628",
+      "creator_id": "1793",
+      "ts": 1708754036846,
+      "text": "TYPING is hard"
+    },
+    "6809": {
+      "id": "6809",
+      "article_id": "1628",
+      "creator_id": "1793",
+      "ts": 1708753786846,
+      "text": "cats rule dogs droo"
+    },
+    "7401": {
+      "id": "7401",
+      "article_id": "6245",
+      "creator_id": "1793",
+      "ts": 1708753873069,
+      "text": "123"
+    },
+    "7460": {
+      "id": "7460",
+      "article_id": "1628",
+      "creator_id": "1793",
+      "ts": 1708753897846,
+      "text": "type is hard"
+    },
+    "7596": {
+      "id": "7596",
+      "article_id": "1628",
+      "creator_id": "1793",
+      "ts": 1708754206846,
+      "text": "cats rule dogs drool"
+    },
+    "9764": {
+      "id": "9764",
+      "article_id": "1628",
+      "creator_id": "1793",
+      "ts": 1708753836846,
+      "text": "cats rule dogs"
+    }
+  },
+  "users": {
+    "1793": {
+      "id": "1793",
+      "username": "cat",
+      "password_hash": "$2b$12$9Kh/vyadSKtaFTziFqVn7OCXV4ow4AsVvSymYqIY.4RDpFu1QnJiy"
+    },
+    "5669": {
+      "id": "5669",
+      "username": "dog",
+      "password_hash": "$2b$12$xW9QSMVYrnxzxa/Ez6c9he0DvzS8WPs7LArSVNBZQbqsCW7KnyWA6"
+    },
+    "9457": {
+      "id": "9457",
+      "username": "a",
+      "password_hash": "$2b$12$TB5sPr9vhve8.Xk.q.bmdOZ0.BZahFEYk.vFn47q8H9LUv0qHlEWq"
+    }
+  }
+}
