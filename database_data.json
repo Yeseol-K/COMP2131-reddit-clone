@@ -2,104 +2,104 @@
   "subs": {
     "dogpics": {
       "name": "dogpics",
-      "creator_id": "1420"
+      "creator_id": "5002"
     },
     "catpics": {
       "name": "catpics",
-      "creator_id": "7093"
+      "creator_id": "3280"
     }
   },
   "articles": {
-    "5101": {
-      "id": "5101",
+    "4170": {
+      "id": "4170",
       "sub_name": "catpics",
       "title": "filing system for cats",
-      "creator_id": "0822",
+      "creator_id": "9584",
       "link": "https://preview.redd.it/aik7h7zqp1ic1.jpg?width=3024&format=pjpg&auto=webp&s=13f532faf8c8e626b2e76938be6cb4eabb58e352"
     },
-    "6952": {
-      "id": "6952",
-      "sub_name": "catpics",
-      "title": "Prelude to a homicide",
-      "creator_id": "7093",
-      "link": "https://i.redd.it/wsuyo83dy4ic1.jpeg"
-    },
-    "7955": {
-      "id": "7955",
+    "6483": {
+      "id": "6483",
       "sub_name": "dogpics",
       "title": "goldie",
-      "creator_id": "1420",
+      "creator_id": "5002",
       "link": "https://i.redd.it/ts1jpcw2gvr01.jpg",
       "text": "I stole this picture from reddit"
     },
-    "8224": {
-      "id": "8224",
+    "6875": {
+      "id": "6875",
+      "sub_name": "catpics",
+      "title": "Prelude to a homicide",
+      "creator_id": "3280",
+      "link": "https://i.redd.it/wsuyo83dy4ic1.jpeg"
+    },
+    "0548": {
+      "id": "0548",
       "sub_name": "dogpics",
       "title": "Hallo Fren",
-      "creator_id": "0822",
+      "creator_id": "9584",
       "link": "https://i.redd.it/akpraooq3nw91.jpg",
       "text": "Underrated, overcrazy"
     }
   },
   "comments": {
-    "3425": {
-      "id": "3425",
-      "article_id": "7955",
-      "creator_id": "7093",
-      "ts": 1708757867620,
-      "text": "cats rule dogs drool"
-    },
-    "4164": {
-      "id": "4164",
-      "article_id": "7955",
-      "creator_id": "7093",
-      "ts": 1708757497620,
-      "text": "cats rule dogs"
-    },
-    "4878": {
-      "id": "4878",
-      "article_id": "7955",
-      "creator_id": "7093",
-      "ts": 1708757697620,
-      "text": "TYPING is hard"
-    },
-    "6068": {
-      "id": "6068",
-      "article_id": "7955",
-      "creator_id": "7093",
-      "ts": 1708757558620,
+    "1972": {
+      "id": "1972",
+      "article_id": "6483",
+      "creator_id": "3280",
+      "ts": 1708846822059,
       "text": "type is hard"
     },
-    "6344": {
-      "id": "6344",
-      "article_id": "7955",
-      "creator_id": "7093",
-      "ts": 1708757447620,
+    "3644": {
+      "id": "3644",
+      "article_id": "6483",
+      "creator_id": "3280",
+      "ts": 1708846961059,
+      "text": "TYPING is hard"
+    },
+    "4154": {
+      "id": "4154",
+      "article_id": "6483",
+      "creator_id": "3280",
+      "ts": 1708847171059,
+      "text": "ha lol got em"
+    },
+    "7542": {
+      "id": "7542",
+      "article_id": "6483",
+      "creator_id": "3280",
+      "ts": 1708846711060,
       "text": "cats rule dogs droo"
     },
-    "7984": {
-      "id": "7984",
-      "article_id": "7955",
-      "creator_id": "7093",
-      "ts": 1708757907620,
-      "text": "ha lol got em"
+    "8544": {
+      "id": "8544",
+      "article_id": "6483",
+      "creator_id": "3280",
+      "ts": 1708846761059,
+      "text": "cats rule dogs"
+    },
+    "9921": {
+      "id": "9921",
+      "article_id": "6483",
+      "creator_id": "3280",
+      "ts": 1708847131059,
+      "text": "cats rule dogs drool"
     }
   },
   "users": {
-    "1420": {
-      "id": "1420",
-      "username": "dog",
-      "password_hash": "$2b$12$y2yOUJnUUU6VcFg0sv/feOpIybOkVJnmWnE03Tz/qnEPBWuV1uzKS"
-    },
-    "7093": {
-      "id": "7093",
+    "3280": {
+      "id": "3280",
       "username": "cat",
-      "password_hash": "$2b$12$ZtzkWXstK/tUJ5IUcb5vbOn89khX1LP0zIGITFxIBkZHAaFFCa.jW"
+      "password_hash": "$2b$12$a408rzjlI9CsfEyZkyi3eOh8f1ihUybEKWhdADywyZ4sJvu5KgN7a"
     },
-    "0822": {
-      "id": "0822",
+    "5002": {
+      "id": "5002",
+      "username": "dog",
+      "password_hash": "$2b$12$jpMf8cIOKR3gHX.7BY6NJu8ZOsD52qP8jFhkuqy2Os6u03epMHFda"
+    },
+    "9584": {
+      "id": "9584",
       "username": "a",
-      "password_hash": "$2b$12$yz.3Dpal//xhYS.GbbW6R.JRH0c5GvbJjlv8/1/LpqXaMeuvLyzRm"
+      "password_hash": "$2b$12$/VwG4s8S06vd57ivEbJJgOJ.j.cNEmAD2ocTWUZv/Jh9tn7MIooD."
     }
   }
 }

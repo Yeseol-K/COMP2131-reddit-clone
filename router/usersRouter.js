@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
         req.session.user = user.username;
         res.redirect('/');
       } else {
-        throw new Error('Password is not correct');
+        res.render('error',{msg: 'Password is not correct'});
       }
     });
   } catch (error) {
@@ -70,7 +70,7 @@ router.post('/register', (req, res) => {
     res.redirect('/');
   } catch (error) {
     console.error(error);
-    res.render('error', { msg: "Error during registration" });
+    res.render('error', { msg: "User already exists" });
   }
 });
 

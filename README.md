@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/6obdcLqg)
 
 
 
@@ -144,10 +143,85 @@ Remember to think about code presentation.  That's all the concerns from the pre
 
 ## SATIS tier
 
-More detail will come, but the main feature will be making voting work, on articles and comments.
+You need to switch from using `jeddit-fake-db-pass` to using `jeddit-fake-db-exemp`.  This adds a few new tables (some for satis, some for exemp), and new methods, and even new data to an old table because I made an oopsie.
+
+* autotagify images
+    * let's make it so that, when an article's link is an image, it made an image tag
+        * so in the `GET /articles/show/:id` route, the image would appear right there, rather than having to click through
+    * at the SATIS tier, it's good enough to do something mediocre to detect if it's an image
+        * for example, you could assume that any link that ends with `.jpg` or `.jpeg` or `.gif` or `.png` is an image
+        * if you really want to be crazy, do a `fetch` from the server, examine the `Content-Type` header to see what type the sending server thinks it is
+            * this is a fairly high-quality plan, but totally out of scope for what we've covered so far
+* voting
+    * unlike all features up to this point, this feature *requires CSS* to be implemented (because of colours, explained below)
+    * logged-in users should be able to vote on articles and comments, being able to vote UP or DOWN (and also to have no vote, including being able to cancel their vote)
+    * users who are not logged in should not be able to vote, but they should still be able to see the voting totals
+    * on articles
+        * next to an article, display a count of the net votes (upvotes minus downvotes)
+        * if the user is logged in, also display an upvote-button and a downvote-button
+            * if the current user has not upvoted or downvoted the article, both buttons should be coloured in some boring colour (e.g. white or gray)
+            * if the current user has upvoted the article, the upvote button should be coloured an emphatic colour to show that (e.g. green)
+            * if the current user has downvoted the article, the downvote button should be coloured an emphatic colour to show that (e.g. red)
+        * if the user clicks an unvoted button, it creates-or-updates their vote as necessary
+        * if the user clicks on a button that was already activated, it deactivates their vote
+        * both buttons work via backend logic, no frontend!
+        * you must implement this where articles are listed in subjeddits, and in the article/show route
+            * optionally, also implement this everywhere else articles are seen, such as on the frontpage, or in user profiles
+        * add a single route like this: `POST /articles/vote/:id/:votevalue`
+            * decide for yourself what `votevalue` should be, but remember there are three possible values
+    * on comments
+        * same thing, except for comments
+        * you must implement this where comments are listed in articles, and in the comments/show route
+            * optionally, also implement this everywhere else comments are seen, such as in user profiles
+        * add a single route like this: `POST /comments/vote/:id/:votevalue`
+            * the meaning of `votevalue` should be consistent with what you did for articles
+    * when you vote, it should request to the appropriate POST route, and the POST route-handler should redirect you back to the route you were on
+        * use a query param to make this work
+    * when an user creates an article or comment, assume that they would like to immediately create a vote for their own content
+        * do actually create the vote for them, so that they can't create an additional vote for themselves later
+* custom ordering
+    * anywhere that articles or comments are displayed in a list, it should not be possible to reorder them
+        * articles or comments can be ordered four (or five) ways:
+            * "top" means ordered by `(upvotes - downvotes)`, with higher valeus of `(upvotes - downvotes)` at the top
+            * "new" means ordered by timestamp, newest ones at the top
+                * note that the new DB has added timestamps for articles, I don't know why I didn't have them before
+            * "old" is the oppsite of "new", of course
+            * "ragebait" means ordered by `(upvotes + downvotes)`
+            * optionally, try to figure out an algorithm for "new", and add that, if you want!
+    * on every page (i.e. view) that has article-ordering or comment-ordering, there needs to be a dropdown for the user to select an order
+        * if you know how to use event handlers to submit the form without using a Submit butotn, you may
+        * or you may use a Submit button
+        * but either way, the reordering must be done on the backend
+        * the action should go to the same page as currently, but with a `?ordering=` query param added
+    * every route that has article-ordering or comment-ordering, needs to look for the query-param and use it to reorder the values before sending them to the EJS
+        * (or reorder them in the EJS, maybe)
+
+
 
 
 ## EXEMP tier
 
-More details will come, but the main feature will be nested comments, and maybe also mods for subjeddits. 
-
+* moderators
+    * everybody loves mods, let's add mods
+    * when a user creates a subjeddit, they are automatically made a mod of that subjeddit
+    * when viewing a subjeddit, or viewing an article, mods see the following extra buttons next to all articles and comments:
+        * "Mod Delete", works just like "Delete"
+    * when viewing a subjeddit, mods of that subjeddit can see an extra button: "Mod List", which goes to:
+        * `GET /subs/show/:subname/mods/list`
+    * implement the following routes for managing the mod list:
+        * `GET /subs/show/:subname/mods/add`
+        * `POST /subs/show/:subname/mods/add`
+        * `GET /subs/show/:subname/mods/remove/:mod_name`
+        * `POST /subs/show/:subname/mods/remove/:mod_name`
+        * should these routes be in their own router?   do whatever you want, but think about it!
+    * note that in a real social media app, you'd probably want to have supermods who cannot be removed by regular mods, but we're going to skip that
+        * so it's possible to create a sub, then promote someone else to mod, and then they remove you as a mod!
+* nested comments
+    * previously, every comment was a reply to an article.  let's make it so that comments can reply to comments.
+        * that includes letting comments reply to comments thare are replies to comments, and comments that are replies to replies to comments, etc
+    * so now next to every comment, when a user is logged in, there should be a `Reply` button
+        * that button goes to the `GET /comments/show/:id` route for the existing comment (which already exists)
+            * now that page should, if the user is logged in, have a form to reply
+                * that goes to `POST /comments/create`, which also already exists, but now it need to pass a parameter or something so that it knows that it's a reply
+    * when viewing an article and all of its comments, nested reply comments should display nicely
+    * when viewing a single comment, all of its nested replies should display at the bottom
