@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../reddit-fake-db-pass');
+const db = require('../reddit-fake-db-exemp');
 
 router.get('/list', (req, res) => {
   try {

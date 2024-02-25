@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const db = require('../reddit-fake-db-pass');
+const db = require('../reddit-fake-db-exemp');
 
 router.get('/login', (req, res) => {
   try {
@@ -67,7 +67,7 @@ router.post('/register', (req, res) => {
 
     const user = db.users.create({ username: newUser, password_hash });
 
-    res.redirect('/');
+    res.redirect('/users/login');
   } catch (error) {
     console.error(error);
     res.render('error', { msg: "User already exists" });

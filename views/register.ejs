@@ -21,7 +21,7 @@
     }
 
     header {
-      background-color: #353535;
+      background-color: #3f3f3f;
       color: #fff;
       padding: 5px;
       text-align: center;
@@ -102,24 +102,20 @@
   </nav>
 
   <p>
-    <form id="registrationForm" action="/users/register" method="post">
+    <form action="/users/register" method="post">
       <label for="title">Title</label>
       <input type="text" id="title" name="title" required>
       <br>
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required>
       <br>
-      <button type="submit" id="registerButton">Register</button>
+      <button type="submit" onclick="registerSuccess()">Register</button>
     </form>
-
     <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            alert('Registration successful!'); 
-            window.location.href = "http://localhost:3000/users/login";
-        });
+      function registerSuccess() {
+        alert('Registration successful!'); //I know you don't like alert but I have no idea of this successfull msg handling.
+      }
     </script>
   </p>
 </body>
 </html>
-

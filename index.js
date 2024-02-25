@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session')
 
-const db = require('./reddit-fake-db-pass');
+const db = require('./reddit-fake-db-exemp');
 const usersRouter = require('./router/usersRouter.js')
 const subsRouter = require('./router/subRouter.js')
 const articlesRouter = require('./router/articlesRouter.js')

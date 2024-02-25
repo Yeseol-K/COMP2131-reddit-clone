@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment</title>
+    <title>Article</title>
     <style>
     @font-face {
       font-family: 'BMJUA';
@@ -56,7 +56,7 @@
       background-color: #ee6e06;
     }
 
-    .logo {
+    .logo, img {
       max-width: 200px; 
       height: auto;
     }
@@ -89,15 +89,22 @@
     </div>
   </nav>
 
-  <a href="/subs/show/<%= detail.sub_name %>" class="a">back to <%= detail.sub_name %></a>
+  <a href="/subs/show/<%= artilce.sub_name %>" class="a">back to <%= artilce.sub_name %></a>
 
-  <h1><%= detail.title %></h1>
-  <p><a href="<%= detail.link %>"><%= detail.link %></a></p>
-  <p>posted by <a href=""><%= detail.creator.username %></a></p>
-  <p><%= detail.text %></p>
-  <% if(username === detail.creator.username) { %>
-    <a href="/articles/edit/<%= detail.id  %>"><button>Edit</button></a>
-    <a href="/articles/delete/<%= detail.title %>"><button>Delete</button></a>
+  <h1><%= artilce.title %></h1>
+
+  <% if (isImage) { %>
+    <img src="<%= artilce.link %>" alt="Article Image">
+  <% } else { %>
+    <p><a href="<%= artilce.link %>"><%= artilce.link %></a></p>
+  <% } %>
+  
+  <p><a href="<%= artilce.link %>"><%= artilce.link %></a></p>
+  <p>posted by <a href=""><%= artilce.creator.username %></a></p>
+  <p><%= artilce.text %></p>
+  <% if(username === artilce.creator.username) { %>
+    <a href="/articles/edit/<%= artilce.id  %>"><button>Edit</button></a>
+    <a href="/articles/delete/<%= artilce.title %>"><button>Delete</button></a>
   <% } %>
 
   <% if (comments.length > 0) { %>
@@ -117,7 +124,7 @@
   <% } %> <br>
 
         <h1>New comment</h1>
-        <form action="/comments/create/<%= detail.id  %>" method="post">
+        <form action="/comments/create/<%= artilce.id  %>" method="post">
           Comments:<br> <textarea name="comment" cols="25" rows="5"></textarea>
           <br>
           <button type="submit">New comment</button>

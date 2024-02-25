@@ -1,21 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../reddit-fake-db-pass');
+const db = require('../reddit-fake-db-exemp');
 
 router.get('/show/:id', (req, res) => {
+  const imageExtensions = ['.jpg', '.jpeg', '.gif', '.png'];
+
   try {
-    const username = req.session.user;
+    const username = req.session.user || null;
     const articleId = req.params.id;
     const articleDetail = db.articles.get_byId(articleId, { withComments: true, withCreator: true });
 
-    if (!articleDetail) {
-      throw new Error("Article does not exist");
+    if (!articleDetail || !articleDetail.comments || !articleDetail.creator) {
+      res.render('error', { msg: "Invalid article"});
     }
 
     const articleComments = articleDetail.comments;
+    
+    const isImage = imageExtensions.some(ext => articleDetail.link.toLowerCase().endsWith(ext));
+    // console.log(isImage);
+    //.some : Check if at least one element in array satisfies a condition and return true.
+    //.map : loop, Check each element in array ex)true, false, false, false
 
-    res.render('articleShow', { detail: articleDetail, comments: articleComments, username, title: articleDetail.id });
+    res.render('articleShow', { artilce: articleDetail, comments: articleComments, username, isImage, title: articleDetail.id });
   } catch (error) {
+    console.error(error);
     res.render('error', { msg: "Error displaying article" });
   }
 });
