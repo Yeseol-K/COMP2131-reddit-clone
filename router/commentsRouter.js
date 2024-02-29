@@ -6,16 +6,62 @@ router.get('/show/:id', (req, res) => {
   try {
     const username = req.session.user;
     const commentId = req.params.id;
-    const commentDetail = db.comments.get_byId(commentId, { withCreator: true, reserved_for_later: true });
 
-    if (!commentDetail) {
-      throw new Error("Comment not found");
-    }
+    const commentDetail = db.comments.get_byId(commentId, { 
+      withCreator: true, 
+      withVotes: true, 
+      withCurrentVote: req.user, 
+      withNestedComments: true
+     });
+    
+     if (!commentDetail) {
+       throw new Error("Comment not found");
+     }
 
-    res.render('commentShow', { username, commentId, comment: commentDetail });
+    const voteValue = Number(commentDetail.upvotes - commentDetail.downvotes);
+
+
+    res.render('commentShow', { 
+      username, 
+      commentId, 
+      comment: commentDetail, 
+      commentVote_value: voteValue 
+    });
+
   } catch (error) {
     res.render('error', { msg: "Error fetching comment" });
   }
+});
+
+router.post('/vote/:id/:votevalue', (req, res) => { 
+  // try {
+  //   const user = req.session.user;
+  //   const creator = db.users.get_byUsername(user);
+
+  //   if (!creator) {
+  //     throw new Error("User not found");
+  //   }
+
+
+  const username = req.session.user;
+  const voter = db.users.get_byUsername(username);
+
+  const commentId = req.params.id;
+  const voteValue = req.params.votevalue;
+  const comment = db.comments.get_byId(commentId);
+  console.log({voter})
+  const currentVote = db.comments.get_vote({ comment, voter });
+  if (currentVote) {
+      if (currentVote.vote_value === Number(voteValue)) {
+          db.comments.remove_vote({ comment, voter });
+      } else {
+          db.comments.set_vote({ comment, voter, vote_value: Number(voteValue) });
+      }
+  } else {
+    db.comments.set_vote({ comment, voter, vote_value: Number(voteValue) });
+  }
+  const referer = req.header("Referer") || "/comments/show/" + commentId;
+  res.redirect(referer);
 });
 
 router.post('/create/:id', (req, res) => {

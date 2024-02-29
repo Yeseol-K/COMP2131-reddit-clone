@@ -32,11 +32,32 @@
       align-items: center;
       margin: 10px;
     }
+
     .login {
       text-decoration: none;
       font-weight: bold;
       color: #ee6e06;
     }
+
+    .up {
+      border: 2px solid #008000;
+      font-size: x-small;
+      margin: 2px;
+      border-radius: 0px;
+    }
+    .up:hover, .up:visited {
+      background-color: #008000;;
+    }
+    .down {
+      border: 2px solid rgb(249, 48, 48);
+      font-size: x-small;
+      margin: 2px;
+      border-radius: 0px;
+    }
+    .down:hover, .down:visited {
+      background-color: rgb(249, 48, 48);;
+    }
+    
     nav button , button {
       font-size: 16px;
       font-family: 'BMJUA';
@@ -55,7 +76,7 @@
     }
 
     .logo {
-      max-width: 200px; 
+      max-width: 150px; 
       height: auto;
     }
 
@@ -92,6 +113,17 @@
 
     <h1>Comment</h1>
     <h2><%= comment.creator.username %></h2>
+    <p>
+      vote:<%= commentVote_value %>
+      <% if (username) { %>
+        <form method="post" action="/comments/vote/<%= comment.id %>/<%= +1 %>">
+          <button type="submit" class="up">↑</button>
+        </form>
+        <form method="post" action="/comments/vote/<%= comment.id %>/<%= -1 %>">
+          <button type="submit" class="down">↓</button>
+        </form>
+      <% } %>
+    </p>
     <p><%= comment.text %></p>
     <p> at <%= new Date(comment.ts) %></p>
     <% if(username === comment.creator.username) { %>

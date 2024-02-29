@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <style>
     @font-face {
       font-family: 'BMJUA';
       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
       font-weight: normal;
       font-style: normal;
     }
-  
+
     body {
       font-family: 'Reddit', 'BMJUA';
       margin: 10px;
@@ -21,28 +22,65 @@
     }
 
     h1 {
-    color: #ee6e06;
-    padding: 5px;
+      color: #ee6e06;
+      padding: 5px;
     }
-    
+
     nav {
       text-align: center;
       display: flex;
-      justify-content: space-between; 
+      justify-content: space-between;
       align-items: center;
       margin: 10px;
     }
+
     .login {
       text-decoration: none;
       font-weight: bold;
       color: #ee6e06;
     }
-    nav button , button {
+
+    .up {
+      border: 2px solid #008000;
+      font-size: x-small;
+      margin: 2px;
+      border-radius: 0px;
+    }
+
+    .up:hover,
+    .upvoted {
+      background-color: #008000;
+    }
+
+    .down {
+      border: 2px solid rgb(249, 48, 48);
+      font-size: x-small;
+      margin: 2px;
+      border-radius: 0px;
+    }
+
+    .down:hover,
+    .downvoted {
+      background-color: rgb(249, 48, 48);
+    }
+
+    .comment-container {
+      display: flex;
+      text-align: center;
+    }
+
+    #value {
+      width: 20px;
+      text-align: center;
+    }
+
+    nav button,
+    button {
       font-size: 16px;
       font-family: 'BMJUA';
       text-decoration: none;
       color: #333;
-      margin: 5px; 
+      margin: 5px;
       padding: 5px;
       border: 2px solid #ee6e06;
       border-radius: 5px;
@@ -50,12 +88,13 @@
       transition: background-color 0.3s ease;
     }
 
-    nav button:hover , button:hover {
+    nav button:hover,
+    button:hover {
       background-color: #ee6e06;
     }
 
     .logo {
-      max-width: 200px; 
+      max-width: 150px;
       height: auto;
     }
 
@@ -66,9 +105,9 @@
     form {
       display: inline-block;
     }
-    
   </style>
 </head>
+
 <body>
 
   <nav>
@@ -76,34 +115,57 @@
     <div>
       <a href="/"><button>Home</button></a>
       <a href="/debugPage"><button>Debug DB</button></a>
-      <% if(username) {%>
-        You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
-     <form action="/users/logout" method="post">
-          <button type="submit">Logout</button></form>
+      <% if(user) { %>
+      You are logged in <a href="/users/profile/<%=user%>" class="login"><%=user%></a>
+      <form action="/users/logout" method="post">
+        <button type="submit">Logout</button></form>
       <% } else { %>
-        <a href="/users/login"><button>Login</button></a>
-        <%}%>
-        <a href="/users/register"><button>Register</button></a>
+      <a href="/users/login"><button>Login</button></a>
+      <% } %>
+      <a href="/users/register"><button>Register</button></a>
     </div>
   </nav>
 
-  <h1><%= username %>'s profile</h1>
+  <h1><%= user %>'s profile</h1>
   <h2>Articles:</h2>
   <ul>
     <% for (let i = 0; i < articles.length; i++) { %>
-        <li>
-            <a href="/articles/show/<%=articles[i].id%>"><%= articles[i].title %></a>
-        </li>
+    <li>
+      vote : <%= articleVote[i].totalVotes %>
+      <% if (username) { %>
+      <form method="post" action="/articles/vote/<%= articles[i].id%>/<%= +1 %>">
+        <button type="submit" class="up">↑</button>
+      </form>
+      <form method="post" action="/articles/vote/<%= articles[i].id %>/<%= -1 %>">
+        <button type="submit" class="down">↓</button>
+      </form>
+      <% } %>
+
+      <a href="/articles/show/<%=articles[i].id%>"><%= articles[i].title %></a>
+    </li>
     <% } %>
-</ul>
+  </ul>
   <h2>Comments:</h2>
   <ul>
     <% for (let i = 0; i < comments.length; i++) { %>
-      <li>
-          <%= new Date(comments[i].ts) %> :
+    <li>
+      <div class="comment-container">
+        <p id="value"><%= commentVote[i].totalVotes %></p>
+        <% if (username) { %>
+        <form method="post" action="/comments/vote/<%= comments[i].id%>/<%= +1 %>">
+          <button type="submit" class="up">↑</button>
+        </form>
+        <form method="post" action="/comments/vote/<%= comments[i].id %>/<%= -1 %>">
+          <button type="submit" class="down">↓</button>
+        </form>
+        <% } %>
+        <p><%= new Date(comments[i].ts) %> :
           <a href="/comments/show/<%= comments[i].id %>"><%= comments[i].text %></a>
-      </li>
-  <% } %>
+        </p>
+      </div>
+    </li>
+    <% } %>
   </ul>
 </body>
+
 </html>

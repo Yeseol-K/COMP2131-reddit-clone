@@ -76,13 +76,46 @@ router.post('/register', (req, res) => {
 
 router.get('/profile/:id', (req, res) => {
   try {
-    const user = req.session.user;
-    const username = req.params.id;
-    const userInfo = db.users.get_byUsername(username);
-    const profileArticle = db.articles.get_byFilter(article => article.creator_id === userInfo.id);
-    const profileComment = db.comments.get_byFilter(comment => comment.creator_id === userInfo.id);
+    const username = req.session.user; //sol
+    const user = req.params.id; //sol
+    const userInfo = db.users.get_byUsername(user);
+    const userId = userInfo.id
 
-    res.render('profile', { username, user, articles: profileArticle, comments: profileComment });
+    const profileArticle = db.articles.get_byFilter(article => article.creator_id === userId);
+    const profileComment = db.comments.get_byFilter(comment => comment.creator_id === userId);
+    
+    const userDetail = db.users.get_byId(userId , {
+      withArticles: true, 
+      withComments: true,
+      withCreator: true,
+      withVotes: true,
+      withCurrentVote: req.user,
+      // order_by: best_ordering_callback,
+    });
+    const articles = userDetail.articles;
+    const articleVote = articles.map(article => ({
+      upvotes: article.upvotes,
+      downvotes: article.downvotes,
+      totalVotes: article.upvotes - article.downvotes
+    }));
+
+
+    const comments = userDetail.comments;
+    const commentVote = comments.map(comment => ({
+      upvotes: comment.upvotes,
+      downvotes: comment.downvotes,
+      totalVotes: comment.upvotes - comment.downvotes
+    }));
+   
+
+    res.render('profile', { 
+      username, 
+      user, 
+      articles: profileArticle,
+      articleVote: articleVote, 
+      comments: profileComment,
+      commentVote: commentVote
+     });
   } catch (error) {
     res.render('error', { msg: "Error rendering user profile" });
   }

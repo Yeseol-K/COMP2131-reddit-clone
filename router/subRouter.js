@@ -15,10 +15,25 @@ router.get('/list', (req, res) => {
 
 router.get('/show/:sub', (req, res) => {
   try {
-    const username = req.session.user;
-    const sub = req.params.sub;
+    const username = req.session.user; //currnet login
+    const sub = req.params.sub;//sub name 
     const articles = db.articles.get_byFilter(article => article.sub_name === sub);
-    res.render('subsShow', { sub, articles, username });
+const articleVotes = [];
+
+for (let i = 0; i < articles.length; i++) {
+  const articleDetail = db.articles.get_byId(articles[i].id, {
+    withComments: true,
+    withCreator: true,
+    withVotes: true,
+    withCurrentVote: req.user,
+    // order_by: best_ordering_callback,
+  });
+
+  const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
+  articleVotes.push(articleVote);
+}
+
+    res.render('subsShow', { sub, articles, username, vote: articleVotes });
   } catch (error) {
     res.render('error', { msg: "Error fetching subreddit list" });
   }
