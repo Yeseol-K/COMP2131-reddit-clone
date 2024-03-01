@@ -1,134 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Comment</title>
     <style>
-    @font-face {
-      font-family: 'BMJUA';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-  
-    body {
-      font-family: 'Reddit', 'BMJUA';
-      margin: 10px;
-      padding: 10px;
-      background-color: #f4f4f4;
-      color: #000000;
-    }
+      @font-face {
+        font-family: "BMJUA";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
 
-    h1 {
-    color: #ee6e06;
-    padding: 5px;
-    }
-    
-    nav {
-      text-align: center;
-      display: flex;
-      justify-content: space-between; 
-      align-items: center;
-      margin: 10px;
-    }
+      body {
+        font-family: "Reddit", "BMJUA";
+        margin: 10px;
+        padding: 10px;
+        background-color: #f4f4f4;
+        color: #000000;
+      }
 
-    .login {
-      text-decoration: none;
-      font-weight: bold;
-      color: #ee6e06;
-    }
+      h1 {
+        color: #ee6e06;
+        padding: 5px;
+      }
 
-    .up {
-      border: 2px solid #008000;
-      font-size: x-small;
-      margin: 2px;
-      border-radius: 0px;
-    }
-    .up:hover, .up:visited {
-      background-color: #008000;;
-    }
-    .down {
-      border: 2px solid rgb(249, 48, 48);
-      font-size: x-small;
-      margin: 2px;
-      border-radius: 0px;
-    }
-    .down:hover, .down:visited {
-      background-color: rgb(249, 48, 48);;
-    }
-    
-    nav button , button {
-      font-size: 16px;
-      font-family: 'BMJUA';
-      text-decoration: none;
-      color: #333;
-      margin: 5px; 
-      padding: 5px;
-      border: 2px solid #ee6e06;
-      border-radius: 5px;
-      background-color: #fff;
-      transition: background-color 0.3s ease;
-    }
+      nav {
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px;
+      }
 
-    nav button:hover , button:hover {
-      background-color: #ee6e06;
-    }
+      .login {
+        text-decoration: none;
+        font-weight: bold;
+        color: #ee6e06;
+      }
 
-    .logo {
-      max-width: 150px; 
-      height: auto;
-    }
+      .up {
+        border: 2px solid #008000;
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .up:hover,
+      .upvoted {
+        background-color: #008000;
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .down {
+        border: 2px solid rgb(249, 48, 48);
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .down:hover,
+      .downvoted {
+        background-color: rgb(249, 48, 48);
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
 
-    .centered-buttons {
-      text-align: center;
-    }
+      nav button,
+      button {
+        font-size: 16px;
+        font-family: "BMJUA";
+        text-decoration: none;
+        color: #333;
+        margin: 5px;
+        padding: 5px;
+        border: 2px solid #ee6e06;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+      }
 
-    form {
-      display: inline-block;
-    }
-    
-  </style>
-</head>
-<body>
+      nav button:hover,
+      button:hover {
+        background-color: #ee6e06;
+      }
 
-  <nav>
-    <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo">
-    <div>
-      <a href="/"><button>Home</button></a>
-      <a href="/debugPage"><button>Debug DB</button></a>
-      <% if(username) {%>
-        You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
-     <form action="/users/logout" method="post">
-          <button type="submit">Logout</button></form>
-      <% } else { %>
+      .logo {
+        max-width: 150px;
+        height: auto;
+      }
+
+      .centered-buttons {
+        text-align: center;
+      }
+
+      form {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo" />
+      <div>
+        <a href="/"><button>Home</button></a>
+        <a href="/debugPage"><button>Debug DB</button></a>
+        <% if(username) {%> You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
+        <form action="/users/logout" method="post">
+          <button type="submit">Logout</button>
+        </form>
+        <% } else { %>
         <a href="/users/login"><button>Login</button></a>
         <%}%>
         <a href="/users/register"><button>Register</button></a>
-    </div>
-  </nav>
+      </div>
+    </nav>
 
-    <a href='/articles/show/<%= comment.article_id %>' class="a">back to article</a>
-
+    <a href="/articles/show/<%= comment.article_id %>" class="a">back to article</a>
 
     <h1>Comment</h1>
     <h2><%= comment.creator.username %></h2>
-    <p>
-      vote:<%= commentVote_value %>
-      <% if (username) { %>
-        <form method="post" action="/comments/vote/<%= comment.id %>/<%= +1 %>">
-          <button type="submit" class="up">↑</button>
-        </form>
-        <form method="post" action="/comments/vote/<%= comment.id %>/<%= -1 %>">
-          <button type="submit" class="down">↓</button>
-        </form>
-      <% } %>
-    </p>
-    <p><%= comment.text %></p>
-    <p> at <%= new Date(comment.ts) %></p>
-    <% if(username === comment.creator.username) { %>
-      <a href="/comments/edit/<%= commentId %>"><button>Edit</button></a>
-      <a href="/comments/delete/<%= commentId %>"><button>Delete</button></a>
+
+    vote:<%= commentVote %> <% if (username) { %>
+    <form method="post" action="/comments/vote/<%= comment.id %>/<%= +1 %>">
+      <%console.log(comment)%>
+      <button type="submit" class="up <%= comment.current_vote?.vote_value === 1 ? 'upvoted' : '' %>">↑</button>
+    </form>
+    <form method="post" action="/comments/vote/<%= comment.id %>/<%= -1 %>">
+      <button type="submit" class="down <%= comment.current_vote?.vote_value === -1 ? 'downvoted' : '' %>">↓</button>
+    </form>
     <% } %>
-</body>
+
+    <p><%= comment.text %></p>
+    <p>at <%= new Date(comment.ts) %></p>
+    <% if(username === comment.creator.username) { %>
+    <a href="/comments/edit/<%= commentId %>"><button>Edit</button></a>
+    <a href="/comments/delete/<%= commentId %>"><button>Delete</button></a>
+    <% } %>
+  </body>
 </html>

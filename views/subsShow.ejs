@@ -1,152 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subreddit <%= sub %></title>
+    <style>
+      @font-face {
+        font-family: "BMJUA";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subreddit <%= sub %></title>
-  <style>
-    @font-face {
-      font-family: 'BMJUA';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
+      body {
+        font-family: "Reddit", "BMJUA";
+        margin: 10px;
+        padding: 10px;
+        background-color: #f4f4f4;
+        color: #000000;
+      }
 
-    body {
-      font-family: 'Reddit', 'BMJUA';
-      margin: 10px;
-      padding: 10px;
-      background-color: #f4f4f4;
-      color: #000000;
-    }
+      h1 {
+        background-color: #ee6e06;
+        color: #fff;
+        padding: 5px;
+      }
 
-    h1 {
-      background-color: #ee6e06;
-      color: #fff;
-      padding: 5px;
-    }
+      nav {
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px;
+      }
 
-    nav {
-      text-align: center;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 10px;
-    }
+      .login {
+        text-decoration: none;
+        font-weight: bold;
+        color: #ee6e06;
+      }
 
-    .login {
-      text-decoration: none;
-      font-weight: bold;
-      color: #ee6e06;
-    }
+      .up {
+        border: 2px solid #008000;
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .up:hover,
+      .upvoted {
+        background-color: #008000;
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .down {
+        border: 2px solid rgb(249, 48, 48);
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .down:hover,
+      .downvoted {
+        background-color: rgb(249, 48, 48);
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
 
-    .up,
-    .down {
-      border: 2px solid;
-      font-size: x-small;
-      margin: 0;
-      border-radius: 0;
-    }
+      nav button,
+      button {
+        font-size: 16px;
+        font-family: "BMJUA";
+        text-decoration: none;
+        color: #333;
+        margin: 5px;
+        padding: 5px;
+        border: 2px solid #ee6e06;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+      }
 
-    .up {
-      border: 2px solid #008000;
-      font-size: x-small;
-      margin: 2px;
-      border-radius: 0px;
-    }
+      nav button:hover,
+      button:hover {
+        background-color: #ee6e06;
+      }
 
-    .up:hover,
-    .up:visited {
-      background-color: #008000;
-    }
+      .logo {
+        max-width: 150px;
+        height: auto;
+      }
 
-    .down {
-      border: 2px solid rgb(249, 48, 48);
-      font-size: x-small;
-      margin: 2px;
-      border-radius: 0px;
-    }
+      .centered-buttons {
+        text-align: center;
+      }
 
-    .down:hover,
-    .down:visited {
-      background-color: rgb(249, 48, 48);
-    }
+      form {
+        display: inline-block;
+      }
+    </style>
+  </head>
 
-    nav button,
-    button {
-      font-size: 16px;
-      font-family: 'BMJUA';
-      text-decoration: none;
-      color: #333;
-      margin: 5px;
-      padding: 5px;
-      border: 2px solid #ee6e06;
-      border-radius: 5px;
-      background-color: #fff;
-      transition: background-color 0.3s ease;
-    }
-
-    nav button:hover,
-    button:hover {
-      background-color: #ee6e06;
-    }
-
-    .logo {
-      max-width: 150px;
-      height: auto;
-    }
-
-    .centered-buttons {
-      text-align: center;
-    }
-
-    form {
-      display: inline-block;
-    }
-  </style>
-</head>
-
-<body>
-
-  <nav>
-    <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo">
-    <div>
-      <a href="/"><button>Home</button></a>
-      <a href="/debugPage"><button>Debug DB</button></a>
-      <% if(username) { %>
-        You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
+  <body>
+    <nav>
+      <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo" />
+      <div>
+        <a href="/"><button>Home</button></a>
+        <a href="/debugPage"><button>Debug DB</button></a>
+        <% if(username) { %> You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
         <form action="/users/logout" method="post">
           <button type="submit">Logout</button>
         </form>
-      <% } else { %>
+        <% } else { %>
         <a href="/users/login"><button>Login</button></a>
-      <% } %>
-      <a href="/users/register"><button>Register</button></a>
-    </div>
-  </nav>
+        <% } %>
+        <a href="/users/register"><button>Register</button></a>
+      </div>
+    </nav>
 
-  <h1>Welcome to "<%= sub %>"</h1>
-  <a href="/subs/list" class="a">back to list</a><br>
+    <h1>Welcome to "<%= sub %>"</h1>
+    <a href="/subs/list" class="a">back to list</a><br />
 
-  <h2>Top Articles</h2>
-  <ul>
-    <% for (let i = 0; i < articles.length; i++) { %>
+    <h2>Top Articles</h2>
+    <ul>
+      <% for (let i = 0; i < articles.length; i++) { %>
       <li>
-        <%= vote[i] %>
-        <% if (username) { %>
-          <form method="post" action="/articles/vote/<%= articles[i].id %>/<%= +1 %>">
-            <button class="up">↑</button>
-          </form>
-          <form method="post" action="/articles/vote/<%= articles[i].id %>/<%= -1 %>">
-            <button class="down">↓</button>
-          </form>
+        <%= vote[i] %> <% if (username) { %>
+        <form method="post" action="/articles/vote/<%= articles[i].id %>/<%= +1 %>">
+          <button type="submit" class="up <%= article[i].current_vote?.vote_value === 1 ? 'upvoted' : '' %>">↑</button>
+        </form>
+        <form method="post" action="/articles/vote/<%= articles[i].id %>/<%= -1 %>">
+          <button type="submit" class="down <%= article[i].current_vote?.vote_value === -1 ? 'downvoted' : '' %>">↓</button>
+        </form>
         <% } %>
         <a href="/articles/show/<%= articles[i].id %>"><%= articles[i].title %></a>
       </li>
-    <% } %>
-  </ul>
-  <a href="/articles/create/<%= sub %>"><button>Create an article in <%= sub %></button></a>
-</body>
-
+      <% } %>
+    </ul>
+    <a href="/articles/create/<%= sub %>"><button>Create an article in <%= sub %></button></a>
+  </body>
 </html>

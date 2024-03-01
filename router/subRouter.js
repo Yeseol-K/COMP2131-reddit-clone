@@ -1,55 +1,66 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../reddit-fake-db-exemp');
+const db = require("../reddit-fake-db-exemp");
 
-router.get('/list', (req, res) => {
+router.get("/list", (req, res) => {
   try {
     const username = req.session.user;
     const subredditList = db.subs.list();
-    const subNames = subredditList.map(sub => sub.name);
-    res.render('subsList', { names: subNames, username });
+    const subNames = subredditList.map((sub) => sub.name);
+    res.render("subsList", { names: subNames, username });
   } catch (error) {
-    res.render('error', { msg: "Error fetching subreddit list" });
+    res.render("error", { msg: "Error fetching subreddit list" });
   }
 });
 
-router.get('/show/:sub', (req, res) => {
+router.get("/show/:sub", (req, res) => {
   try {
-    const username = req.session.user; //currnet login
-    const sub = req.params.sub;//sub name 
-    const articles = db.articles.get_byFilter(article => article.sub_name === sub);
-const articleVotes = [];
+    const username = req.session.user; // current login
+    const sub = req.params.sub; // sub name
+    const articles = db.articles.get_byFilter((article) => article.sub_name === sub);
+    const articleVotes = [];
+    const voter = db.users.get_byUsername(username);
 
-for (let i = 0; i < articles.length; i++) {
-  const articleDetail = db.articles.get_byId(articles[i].id, {
-    withComments: true,
-    withCreator: true,
-    withVotes: true,
-    withCurrentVote: req.user,
-    // order_by: best_ordering_callback,
-  });
+    const detailedArticles = [];
 
-  const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
-  articleVotes.push(articleVote);
-}
+    for (const article of articles) {
+      const articleDetail = db.articles.get_byId(article.id, {
+        withComments: true,
+        withCreator: true,
+        withVotes: true,
+        withCurrentVote: voter,
+        // order_by: best_ordering_callback,
+      });
 
-    res.render('subsShow', { sub, articles, username, vote: articleVotes });
+      const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
+      articleVotes.push(articleVote);
+
+      detailedArticles.push(articleDetail);
+    }
+
+    res.render("subsShow", {
+      sub,
+      articles,
+      article: detailedArticles,
+      vote: articleVotes,
+      username,
+    });
   } catch (error) {
-    res.render('error', { msg: "Error fetching subreddit list" });
+    res.render("error", { msg: "Error fetching subreddit list" });
   }
 });
 
-router.get('/create/:sub', (req, res) => {
+router.get("/create/:sub", (req, res) => {
   try {
     const username = req.session.user;
     const sub = req.params.sub;
-    res.render('subCreate', { sub, username });
+    res.render("subCreate", { sub, username });
   } catch (error) {
-    res.render('error', { msg: "Error rendering subreddit creation page" });
+    res.render("error", { msg: "Error rendering subreddit creation page" });
   }
 });
 
-router.post('/create/:sub', (req, res) => {
+router.post("/create/:sub", (req, res) => {
   try {
     const sub = req.params.sub;
     const newSubName = req.body.name;
@@ -57,15 +68,15 @@ router.post('/create/:sub', (req, res) => {
     const creator = db.users.get_byUsername(username);
 
     if (!sub) {
-      throw new Error('Subreddit name is required');
+      throw new Error("Subreddit name is required");
     } else if (!creator) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     } else {
       db.subs.create({ name: newSubName, creator: creator.id });
       res.redirect(`/subs/show/${newSubName}`);
     }
   } catch (error) {
-    res.render('error', { msg: "Error creating subreddit" });
+    res.render("error", { msg: "Error creating subreddit" });
   }
 });
 

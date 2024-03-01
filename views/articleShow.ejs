@@ -1,203 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Article</title>
     <style>
-        @font-face {
-            font-family: 'BMJUA';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+      @font-face {
+        font-family: "BMJUA";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
 
-        body {
-            font-family: 'Reddit', 'BMJUA';
-            margin: 10px;
-            padding: 10px;
-            background-color: #f4f4f4;
-            color: #000000;
-        }
+      body {
+        font-family: "Reddit", "BMJUA";
+        margin: 10px;
+        padding: 10px;
+        background-color: #f4f4f4;
+        color: #000000;
+      }
 
-        h1 {
-            color: #ee6e06;
-            padding: 5px;
-        }
+      h1 {
+        color: #ee6e06;
+        padding: 5px;
+      }
 
-        nav {
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 10px;
-        }
+      nav {
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px;
+      }
 
-        .login, .comment {
-            text-decoration: none;
-            font-weight: bold;
-            color: #ee6e06;
-        }
+      .login,
+      .comment {
+        text-decoration: none;
+        font-weight: bold;
+        color: #ee6e06;
+      }
 
-        .up {
-          border: 2px solid #008000;
-          font-size: x-small;
-          margin: 2px;
-          border-radius: 0px;
-        }
-        .up:hover, .upvoted {
-          background-color: #008000;
-          font-size: x-small;
-          margin: 2px;
-          border-radius: 0px;
-        }
-        .down {
-          border: 2px solid rgb(249, 48, 48);
-          font-size: x-small;
-          margin: 2px;
-          border-radius: 0px;
-        }
-        .down:hover, .downvoted {
-          background-color: rgb(249, 48, 48);
-          font-size: x-small;
-          margin: 2px;
-          border-radius: 0px;
-        }
-        .comment-container {
-          display: flex;
-          text-align: center;
-        }
-        #value {
-          width: 20px;
-          text-align: center;
-        }
+      .up {
+        border: 2px solid #008000;
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .up:hover,
+      .upvoted {
+        background-color: #008000;
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .down {
+        border: 2px solid rgb(249, 48, 48);
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .down:hover,
+      .downvoted {
+        background-color: rgb(249, 48, 48);
+        font-size: x-small;
+        margin: 2px;
+        border-radius: 0px;
+      }
+      .comment-container {
+        display: flex;
+        text-align: center;
+      }
+      #value {
+        width: 20px;
+        text-align: center;
+      }
 
-        nav button, button {
-            font-size: 16px;
-            font-family: 'BMJUA';
-            text-decoration: none;
-            color: #333;
-            margin: 5px;
-            padding: 5px;
-            border: 2px solid #ee6e06;
-            border-radius: 5px;
-            background-color: #fff;
-            transition: background-color 0.3s ease;
-        }
+      nav button,
+      button {
+        font-size: 16px;
+        font-family: "BMJUA";
+        text-decoration: none;
+        color: #333;
+        margin: 5px;
+        padding: 5px;
+        border: 2px solid #ee6e06;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+      }
 
-        nav button:hover, button:hover {
-            background-color: #ee6e06;
-        }
+      nav button:hover,
+      button:hover {
+        background-color: #ee6e06;
+      }
 
-        .logo {
-            max-width: 150px;
-        }
+      .logo {
+        max-width: 150px;
+      }
 
-        img {
-            width: 30%;
-            height: 30%;
-            margin: 2px;
-        }
+      img {
+        width: 50%;
+        height: 30%;
+        margin: 2px;
+      }
 
-        .centered-buttons {
-            text-align: center;
-        }
+      .centered-buttons {
+        text-align: center;
+      }
 
-        form {
-            display: inline-block;
-        }
-
+      form {
+        display: inline-block;
+      }
     </style>
-</head>
-<body>
-
-<nav>
-    <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo">
-    <div>
+  </head>
+  <body>
+    <nav>
+      <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo" />
+      <div>
         <a href="/"><button>Home</button></a>
         <a href="/debugPage"><button>Debug DB</button></a>
-        <% if(username) {%>
-        You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
+        <% if(username) {%> You are logged in <a href="/users/profile/<%=username%>" class="login"><%=username%></a>
         <form action="/users/logout" method="post">
-            <button type="submit">Logout</button></form>
+          <button type="submit">Logout</button>
+        </form>
         <% } else { %>
         <a href="/users/login"><button>Login</button></a>
         <%}%>
         <a href="/users/register"><button>Register</button></a>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<a href="/subs/show/<%= article.sub_name %>" class="a">back to <%= article.sub_name %></a>
+    <a href="/subs/show/<%= article.sub_name %>" class="a">back to <%= article.sub_name %></a>
 
-
-<h1><%= article.title %></h1>
-  <p>
-    vote : <%= articleVote %> 
-      <% if (username) { %>
-        <% if (voter === username) {
-          console.log(voter)
-          console.log(username) %>
-          <form method="post" action="/articles/vote/<%= article.id %>/<%= +1 %>">
-            <button type="submit" class="up <%= voter === username ? 'upvoted' : 'up' %>">↑</button>
-          </form>
-          <form method="post" action="/articles/vote/<%= article.id %>/<%= -1 %>">
-            <button type="submit" class="down <%= voter === username ? 'downvoted' : 'down' %>">↓</button>
-          </form>
-        <% } %>
+    <h1><%= article.title %></h1>
+    <div>
+      vote : <%= articleVote %> <% if (username) { %>
+      <form method="post" action="/articles/vote/<%= article.id %>/<%= +1 %>">
+        <button type="submit" class="up <%= article.current_vote?.vote_value === 1 ? 'upvoted' : '' %>">↑</button>
+      </form>
+      <form method="post" action="/articles/vote/<%= article.id %>/<%= -1 %>">
+        <button type="submit" class="down <%= article.current_vote?.vote_value === -1 ? 'downvoted' : '' %>">↓</button>
+      </form>
       <% } %>
-  </p>
+    </div>
 
-<% if (isImage) { %>
-<img src="<%= article.link %>" alt="Article Image">
-<% } else { %>
-<p><a href="<%= article.link %>"><%= article.link %></a></p>
-<% } %>
+    <% if (isImage) { %>
+    <img src="<%= article.link %>" alt="Article Image" />
+    <% } else { %>
+    <p><a href="<%= article.link %>"><%= article.link %></a></p>
+    <% } %>
 
-<p><a href="<%= article.link %>"><%= article.link %></a></p>
-<p>posted by <a href=""><%= article.creator.username %></a></p>
+    <p><a href="<%= article.link %>"><%= article.link %></a></p>
+    <p>posted by <a href=""><%= article.creator.username %></a></p>
 
-<p><%= article.text %></p>
-<% if(username === article.creator.username) { %>
-  <a href="/articles/edit/<%= article.id %>"><button>Edit</button></a>
-  <a href="/articles/delete/<%= article.title %>"><button>Delete</button></a>
-  <% } %>
-  
-  <% if (comments.length > 0) { %>
+    <p><%= article.text %></p>
+    <% if(username === article.creator.username) { %>
+    <a href="/articles/edit/<%= article.id %>"><button>Edit</button></a>
+    <a href="/articles/delete/<%= article.title %>"><button>Delete</button></a>
+    <% } %> <% if (comments.length > 0) { %>
     <h1>Comments</h1>
     <% comments.forEach((comment, i) => { %>
-      <div class="comment-container">
-          <p id="value"><%= commentVote[i] %></p>        
-      
-        <% if (username) { %>
-          <form method="post" action="/comments/vote/<%= comment.id %>/<%= +1 %>">
-            <button type="submit" class="up">↑</button>
-          </form>
-          <form method="post" action="/comments/vote/<%= comment.id %>/<%= -1 %>">
-            <button type="submit" class="down">↓</button>
-          </form>
-        <% } %>
-      
-        <p>
-        <a href="/users/profile/<%= comment.creator.username %>" class="comment"><%= comment.creator.username %></a>
-        <a href="/comments/show/<%= comment.id %>">"<%= comment.text %>"</a>
-        <%= new Date(comment.ts) %>
-        
-      
-        <% if(username === comment.creator.username) { %>
-          <a href="/comments/edit/<%= comment.id %>" class="comment">Edit</a>
-          <a href="/comments/delete/<%= comment.id %>" class="comment">Delete</a>
-        <% } %>
-        </p>
-      </div>
-    <% }); %>
-  <% } %> <br>
 
-<h1>New comment</h1>
-<form action="/comments/create/<%= article.id  %>" method="post">
-    Comments:<br> <textarea name="comment" cols="25" rows="5"></textarea>
-    <br>
-    <button type="submit">New comment</button>
-</form>
+    <div>
+      <%= commentVote[i] %> <% if (username) { %>
+      <form method="post" action="/comments/vote/<%= comment.id %>/<%= +1 %>">
+        <button type="submit" class="up <%= comment.current_vote?.vote_value === 1 ? 'upvoted' : '' %>">↑</button>
+      </form>
+      <form method="post" action="/comments/vote/<%= comment.id %>/<%= -1 %>">
+        <button type="submit" class="down <%= comment.current_vote?.vote_value === -1 ? 'downvoted' : '' %>">↓</button>
+      </form>
+      <% } %>
 
-</body>
+      <a href="/users/profile/<%= comment.creator.username %>" class="comment"><%= comment.creator.username %></a>
+      <a href="/comments/show/<%= comment.id %>">"<%= comment.text %>"</a>
+      <%= new Date(comment.ts) %> <% if(username === comment.creator.username) { %>
+      <a href="/comments/edit/<%= comment.id %>" class="comment">Edit</a>
+      <a href="/comments/delete/<%= comment.id %>" class="comment">Delete</a>
+      <% } %>
+    </div>
+
+    <% }); %> <% } %> <br />
+
+    <h1>New comment</h1>
+    <form action="/comments/create/<%= article.id  %>" method="post">
+      Comments:<br />
+      <textarea name="comment" cols="25" rows="5"></textarea>
+      <br />
+      <button type="submit">New comment</button>
+    </form>
+  </body>
 </html>

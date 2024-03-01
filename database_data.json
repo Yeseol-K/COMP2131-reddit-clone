@@ -2,234 +2,306 @@
   "subs": {
     "dogpics": {
       "name": "dogpics",
-      "creator_id": "4792"
+      "creator_id": "5097"
     },
     "catpics": {
       "name": "catpics",
-      "creator_id": "6967"
+      "creator_id": "5272"
+    },
+    "sol": {
+      "name": "sol",
+      "creator_id": "3331"
     }
   },
   "articles": {
-    "1197": {
-      "id": "1197",
-      "sub_name": "dogpics",
-      "title": "goldie",
-      "creator_id": "4792",
-      "link": "https://i.redd.it/ts1jpcw2gvr01.jpg",
-      "ts": 1709183647553,
-      "text": "I stole this picture from reddit"
-    },
-    "9194": {
-      "id": "9194",
+    "1042": {
+      "id": "1042",
       "sub_name": "catpics",
       "title": "filing system for cats",
-      "creator_id": "2088",
+      "creator_id": "7968",
       "link": "https://preview.redd.it/aik7h7zqp1ic1.jpg?width=3024&format=pjpg&auto=webp&s=13f532faf8c8e626b2e76938be6cb4eabb58e352",
-      "ts": 1709183647564
+      "ts": 1709187852973
     },
-    "9454": {
-      "id": "9454",
+    "1408": {
+      "id": "1408",
       "sub_name": "catpics",
       "title": "Prelude to a homicide",
-      "creator_id": "6967",
+      "creator_id": "5272",
       "link": "https://i.redd.it/wsuyo83dy4ic1.jpeg",
-      "ts": 1709183647560
+      "ts": 1709187852970
     },
-    "0477": {
-      "id": "0477",
+    "4057": {
+      "id": "4057",
       "sub_name": "dogpics",
       "title": "Hallo Fren",
-      "creator_id": "2088",
+      "creator_id": "7968",
       "link": "https://i.redd.it/akpraooq3nw91.jpg",
-      "ts": 1709183647556,
+      "ts": 1709187852967,
       "text": "Underrated, overcrazy"
+    },
+    "8140": {
+      "id": "8140",
+      "sub_name": "sol",
+      "title": "huchu",
+      "creator_id": "3331",
+      "link": "https://cafeptthumb-phinf.pstatic.net/MjAyMTAyMDlfMTIx/MDAxNjEyODI0MzMxOTQ2.N5q2CaRP07-xKw-Nvop59GEAgXtzGgz9_jvY8hwGztwg.ksQbuBw4ohibX8nna5ZB7izPVDM0LWzUjnSZZ2weYqYg.JPEG/DSC00652.JPG",
+      "ts": 1709188094105,
+      "text": "my boy"
+    },
+    "9139": {
+      "id": "9139",
+      "sub_name": "dogpics",
+      "title": "goldie",
+      "creator_id": "5097",
+      "link": "https://i.redd.it/ts1jpcw2gvr01.jpg",
+      "ts": 1709187852963,
+      "text": "I stole this picture from reddit"
     }
   },
   "comments": {
-    "1785": {
-      "id": "1785",
-      "article_id": "1197",
-      "creator_id": "6967",
-      "ts": 1709183639914,
-      "text": "omg u dummy",
-      "parent": "9803",
+    "2928": {
+      "id": "2928",
+      "article_id": "9139",
+      "creator_id": "5272",
+      "ts": 1709187829519,
+      "text": "cat's rule dog'",
       "children": []
     },
-    "5851": {
-      "id": "5851",
-      "article_id": "1197",
-      "creator_id": "6967",
-      "ts": 1709183636032,
-      "text": "cat's rule dog's drool",
-      "children": []
-    },
-    "6983": {
-      "id": "6983",
-      "article_id": "1197",
-      "creator_id": "6967",
-      "ts": 1709183638914,
-      "text": "ha lol got em",
-      "children": [
-        "9803"
-      ]
-    },
-    "8350": {
-      "id": "8350",
-      "article_id": "1197",
-      "creator_id": "4792",
-      "ts": 1709183623810,
-      "text": "hay cat r u ok?",
-      "parent": "8374",
-      "children": []
-    },
-    "8374": {
-      "id": "8374",
-      "article_id": "1197",
-      "creator_id": "6967",
-      "ts": 1709183623710,
-      "text": "type is hard",
-      "children": [
-        "8350"
-      ]
-    },
-    "9693": {
-      "id": "9693",
-      "article_id": "1197",
-      "creator_id": "6967",
-      "ts": 1709183630959,
-      "text": "TYPING is hard",
-      "children": []
-    },
-    "9803": {
-      "id": "9803",
-      "article_id": "1197",
-      "creator_id": "4792",
-      "ts": 1709183639914,
-      "text": "awesome!  what did u get?",
-      "parent": "6983",
-      "children": [
-        "1785"
-      ]
-    },
-    "9928": {
-      "id": "9928",
-      "article_id": "1197",
-      "creator_id": "6967",
-      "ts": 1709183615476,
+    "3855": {
+      "id": "3855",
+      "article_id": "9139",
+      "creator_id": "5272",
+      "ts": 1709187820850,
       "text": "cat",
       "children": []
     },
-    "0894": {
-      "id": "0894",
-      "article_id": "1197",
-      "creator_id": "6967",
-      "ts": 1709183616874,
-      "text": "cat's rule dog'",
+    "4667": {
+      "id": "4667",
+      "article_id": "9139",
+      "creator_id": "5097",
+      "ts": 1709187833468,
+      "text": "hay cat r u ok?",
+      "parent": "5598",
       "children": []
+    },
+    "4810": {
+      "id": "4810",
+      "article_id": "9139",
+      "creator_id": "5272",
+      "ts": 1709187852381,
+      "text": "ha lol got em",
+      "children": [
+        "0505"
+      ]
+    },
+    "5598": {
+      "id": "5598",
+      "article_id": "9139",
+      "creator_id": "5272",
+      "ts": 1709187833368,
+      "text": "type is hard",
+      "children": [
+        "4667"
+      ]
+    },
+    "6284": {
+      "id": "6284",
+      "article_id": "9139",
+      "creator_id": "5272",
+      "ts": 1709187848637,
+      "text": "cat's rule dog's drool",
+      "children": []
+    },
+    "6551": {
+      "id": "6551",
+      "article_id": "8140",
+      "creator_id": "3331",
+      "ts": 1709188240286,
+      "text": "hello",
+      "children": []
+    },
+    "6695": {
+      "id": "6695",
+      "article_id": "9139",
+      "creator_id": "5272",
+      "ts": 1709187842979,
+      "text": "TYPING is hard",
+      "children": []
+    },
+    "7748": {
+      "id": "7748",
+      "article_id": "9139",
+      "creator_id": "5272",
+      "ts": 1709187853381,
+      "text": "omg u dummy",
+      "parent": "0505",
+      "children": []
+    },
+    "8886": {
+      "id": "8886",
+      "article_id": "8140",
+      "creator_id": "3331",
+      "ts": 1709188232380,
+      "text": "test\r\n",
+      "children": []
+    },
+    "0505": {
+      "id": "0505",
+      "article_id": "9139",
+      "creator_id": "5097",
+      "ts": 1709187853381,
+      "text": "awesome!  what did u get?",
+      "parent": "4810",
+      "children": [
+        "7748"
+      ]
     }
   },
   "users": {
-    "2088": {
-      "id": "2088",
-      "username": "a",
-      "password_hash": "$2b$12$9giNYRNTXX3hHthVT6hSo.QZUdHDs45sJQqB/QqelJPvuLPEKK71O"
+    "3331": {
+      "id": "3331",
+      "username": "sol",
+      "password_hash": "$2b$10$RblRiTlr3uopM5wTok9.IeQ4iKKXjYBWSmQ1vVXMuYM9.PO.w2Mce"
     },
-    "4792": {
-      "id": "4792",
+    "5097": {
+      "id": "5097",
       "username": "dog",
-      "password_hash": "$2b$12$nprug1wN.EQaj5U9Tv0s.OHzjtGK43WA04N94q6c7d68y8zS0hL4W"
+      "password_hash": "$2b$12$cjXppye0yo2m5u9SyaXFh.AHTPjnmYk7gXP/o4NNOIsKMy6l.Az8y"
     },
-    "6967": {
-      "id": "6967",
+    "5272": {
+      "id": "5272",
       "username": "cat",
-      "password_hash": "$2b$12$uist.YB8X43R2SHAIVCDj.7Io.WqehangM1fTm..FHfdZTsSmJwQ2"
+      "password_hash": "$2b$12$Ayw8QCGTAFWNSj0gyN5kbuWn.emcCo3zRjlMBC1WLKf6Ftey/h8CW"
+    },
+    "7968": {
+      "id": "7968",
+      "username": "a",
+      "password_hash": "$2b$12$RLwDKgUv2uFOlmrcKOPiy.8kmi/rFuNZCp9FuvyuwAGC.XcMG7tKG"
     }
   },
   "articles_votes": {
-    "4792;1197": {
-      "article_id": "1197",
-      "voter_id": "4792",
+    "5097;9139": {
+      "article_id": "9139",
+      "voter_id": "5097",
       "vote_value": 1
     },
-    "2088;0477": {
-      "article_id": "0477",
-      "voter_id": "2088",
+    "7968;4057": {
+      "article_id": "4057",
+      "voter_id": "7968",
       "vote_value": 1
     },
-    "6967;9454": {
-      "article_id": "9454",
-      "voter_id": "6967",
+    "7968;1042": {
+      "article_id": "1042",
+      "voter_id": "7968",
       "vote_value": 1
     },
-    "2088;9194": {
-      "article_id": "9194",
-      "voter_id": "2088",
+    "3331;9139": {
+      "article_id": "9139",
+      "voter_id": "3331",
+      "vote_value": 1
+    },
+    "5272;8140": {
+      "article_id": "8140",
+      "voter_id": "5272",
+      "vote_value": 1
+    },
+    "5272;1408": {
+      "article_id": "1408",
+      "voter_id": "5272",
       "vote_value": 1
     }
   },
   "comments_votes": {
-    "6967;6983": {
-      "comment_id": "6983",
-      "voter_id": "6967",
+    "5272;4810": {
+      "comment_id": "4810",
+      "voter_id": "5272",
       "vote_value": 1
     },
-    "6967;5851": {
-      "comment_id": "5851",
-      "voter_id": "6967",
+    "5272;6284": {
+      "comment_id": "6284",
+      "voter_id": "5272",
       "vote_value": 1
     },
-    "6967;9693": {
-      "comment_id": "9693",
-      "voter_id": "6967",
+    "5272;6695": {
+      "comment_id": "6695",
+      "voter_id": "5272",
       "vote_value": 1
     },
-    "6967;8374": {
-      "comment_id": "8374",
-      "voter_id": "6967",
+    "5272;5598": {
+      "comment_id": "5598",
+      "voter_id": "5272",
       "vote_value": 1
     },
-    "6967;0894": {
-      "comment_id": "0894",
-      "voter_id": "6967",
+    "5272;2928": {
+      "comment_id": "2928",
+      "voter_id": "5272",
       "vote_value": 1
     },
-    "6967;9928": {
-      "comment_id": "9928",
-      "voter_id": "6967",
+    "5097;4667": {
+      "comment_id": "4667",
+      "voter_id": "5097",
       "vote_value": 1
     },
-    "4792;8350": {
-      "comment_id": "8350",
-      "voter_id": "4792",
-      "vote_value": 1
-    },
-    "4792;5851": {
-      "comment_id": "5851",
-      "voter_id": "4792",
+    "5097;6284": {
+      "comment_id": "6284",
+      "voter_id": "5097",
       "vote_value": -1
     },
-    "4792;9803": {
-      "comment_id": "9803",
-      "voter_id": "4792",
+    "5097;0505": {
+      "comment_id": "0505",
+      "voter_id": "5097",
       "vote_value": 1
     },
-    "6967;1785": {
-      "comment_id": "1785",
-      "voter_id": "6967",
+    "5272;7748": {
+      "comment_id": "7748",
+      "voter_id": "5272",
       "vote_value": 1
     },
-    "2088;1785": {
-      "comment_id": "1785",
-      "voter_id": "2088",
+    "7968;7748": {
+      "comment_id": "7748",
+      "voter_id": "7968",
       "vote_value": 1
+    },
+    "3331;7748": {
+      "comment_id": "7748",
+      "voter_id": "3331",
+      "vote_value": -1
+    },
+    "3331;6284": {
+      "comment_id": "6284",
+      "voter_id": "3331",
+      "vote_value": 1
+    },
+    "5272;4667": {
+      "comment_id": "4667",
+      "voter_id": "5272",
+      "vote_value": 1
+    },
+    "5272;0505": {
+      "comment_id": "0505",
+      "voter_id": "5272",
+      "vote_value": -1
+    },
+    "5272;8886": {
+      "comment_id": "8886",
+      "voter_id": "5272",
+      "vote_value": 1
+    },
+    "5272;6551": {
+      "comment_id": "6551",
+      "voter_id": "5272",
+      "vote_value": -1
     }
   },
   "mods": {
     "dogpics": {
-      "4792": true
+      "5097": true
     },
     "catpics": {
-      "6967": true
+      "5272": true
+    },
+    "sol": {
+      "3331": true
     }
   }
 }
