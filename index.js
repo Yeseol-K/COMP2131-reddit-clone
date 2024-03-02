@@ -42,14 +42,17 @@ app.get("/debugPage", (req, res) => {
 
 app.get("/debug_db", (req, res) => {
   db.debug.log_debug();
-  res.send("check the server console.   <a href='/'>To Home</a>");
+  res.render("success", { msg: "check the server console" });
+  // res.send("check the server console.   <a href='/'>To Home</a>");
 });
 
 app.post("/reset_db", (req, res) => {
   db.debug.reset_and_seed();
   db.debug.log_debug();
-  res.send("database reset; check the server console.   <a href='/'>To Home</a>");
-}); //nodemon reset_db effects to Json file too. use  "start": "nodemon index.js --ignore *.json"
+  res.render("success", { msg: "database reset; check the server console." });
+  // res.send("database reset; check the server console.   <a href='/'>To Home</a>");
+});
+//nodemon reset_db effects to Json file too. use  "start": "nodemon index.js --ignore *.json"
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);

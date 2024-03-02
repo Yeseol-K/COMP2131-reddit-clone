@@ -46,7 +46,6 @@ router.post("/vote/:id/:votevalue", (req, res) => {
   const commentId = req.params.id;
   const voteValue = req.params.votevalue;
   const comment = db.comments.get_byId(commentId);
-  console.log({ voter });
   const currentVote = db.comments.get_vote({ comment, voter });
   if (currentVote) {
     if (currentVote.vote_value === Number(voteValue)) {

@@ -4,17 +4,28 @@ const db = require("../reddit-fake-db-exemp");
 
 //Show article
 router.get("/show/:id", (req, res) => {
-  // const callback_for_new = () => {};  // needs two more
-  // const callback_for_old = () => {};
+  const sortForNew = (a, b) => {
+    return b.ts - a.ts;
+  };
+  const sortForOld = (a, b) => {
+    return a.ts - b.ts;
+  };
+  const sortVoteUP = (a, b) => {
+    return b.votes - a.votes;
+  };
+  const sortVoteDown = (a, b) => {
+    return a.votes - b.votes;
+  };
 
-  // // now...  how do we decide which one?
-
-  // let best_ordering_callback = callback_for_new;
-  // if (____) {
-  //   best_ordering_callback = callback_for_old;
-  // } else if () {
-
-  // }
+  const ts = Date.now();
+  let orderingCb = sortForNew;
+  if ("need condition") {
+    orderingCb = sortForOld;
+  } else if ("need condition") {
+    orderingCb = sortVoteUP;
+  } else if ("need condition") {
+    orderingCb = sortVoteDown;
+  }
 
   try {
     const username = req.session.user || null;
@@ -25,7 +36,7 @@ router.get("/show/:id", (req, res) => {
       withCreator: true,
       withVotes: true,
       withCurrentVote: voter,
-      // order_by: best_ordering_callback,
+      order_by: orderingCb,
     });
 
     const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);

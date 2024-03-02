@@ -66,8 +66,7 @@ router.post("/register", (req, res) => {
     const password_hash = bcrypt.hashSync(newPassword, 10);
 
     const user = db.users.create({ username: newUser, password_hash });
-
-    res.redirect("/users/login");
+    res.render("success", { msg: "Registration successful!" });
   } catch (error) {
     console.error(error);
     res.render("error", { msg: "User already exists" });
