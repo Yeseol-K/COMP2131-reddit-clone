@@ -8,7 +8,7 @@
   </head>
   <body>
     <nav>
-      <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo" />
+      <img src="/images/logo.png" alt="Logo" class="logo" />
       <div>
         <a href="/"><button>Home</button></a>
         <a href="/debugPage"><button>Debug DB</button></a>
@@ -52,7 +52,15 @@
     <a href="/articles/delete/<%= article.title %>"><button>Delete</button></a>
     <% } %> <% if (comments.length > 0) { %>
     <h1>Comments</h1>
-    <p><%- include('orderby') %></p>
+    <div class="dropdown">
+      <select onchange="orderingCb(comment)">
+        <option value="new" <%= ordering === 'new' ? 'selected' : '' %>>New</option>
+        <option value="old" <%= ordering === 'old' ? 'selected' : '' %>>Old</option>
+        <option value="top" <%= ordering === 'top' ? 'selected' : '' %>>Top</option>
+        <option value="down" <%= ordering === 'down' ? 'selected' : '' %>>down</option>
+      </select>
+  </div>
+
     <% comments.forEach((comment, i) => { %>
     <div>
       <%= commentVote[i] %> <% if (username) { %>

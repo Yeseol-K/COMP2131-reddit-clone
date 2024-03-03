@@ -83,14 +83,31 @@ router.get("/profile/:id", (req, res) => {
     const profileArticle = db.articles.get_byFilter((article) => article.creator_id === userId);
     const profileComment = db.comments.get_byFilter((comment) => comment.creator_id === userId);
 
+    const ordering = req.query.order_by || "new";
+
+    const sortForNew = (a, b) => b.ts - a.ts;
+    const sortForOld = (a, b) => a.ts - b.ts;
+    const sortVoteUP = (a, b) => b.votes - a.votes;
+    const sortVoteDown = (a, b) => a.votes - b.votes;
+
+    let orderingCb = sortForNew;
+    if ("need condition") {
+      orderingCb = sortForOld;
+    } else if ("need condition") {
+      orderingCb = sortVoteUP;
+    } else if ("need condition") {
+      orderingCb = sortVoteDown;
+    }
+
     const userDetail = db.users.get_byId(userId, {
       withArticles: true,
       withComments: true,
       withCreator: true,
       withVotes: true,
       withCurrentVote: userInfo,
-      // order_by: best_ordering_callback,
+      order_by: orderingCb,
     });
+    // console.log(typeof userDetail, userDetail);
 
     const articles = userDetail.articles;
     const articleVote = articles.map((article) => ({
@@ -115,6 +132,7 @@ router.get("/profile/:id", (req, res) => {
       comment: comments,
       comments: profileComment,
       commentVote: commentVote,
+      ordering,
     });
   } catch (error) {
     res.render("error", { msg: "Error rendering user profile" });

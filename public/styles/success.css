@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Reddit";
+  src: url("/fonts/RedditSans-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+button {
+  font-size: 16px;
+  font-family: "Reddit";
+  text-decoration: none;
+  color: #333;
+  margin: 5px;
+  padding: 5px;
+  border: 2px solid #ee6e06;
+  border-radius: 3px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ee6e06;
+}
+
+h1 {
+  background-color: #ee6e06;
+  color: white;
+  padding: 5px;
+}
+
+body {
+  font-family: "Reddit";
+}

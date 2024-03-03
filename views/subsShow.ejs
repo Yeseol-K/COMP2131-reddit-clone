@@ -8,7 +8,7 @@
   </head>
   <body>
     <nav>
-      <img src="https://download.logo.wine/logo/Reddit/Reddit-Logo.wine.png" alt="Logo" class="logo" />
+      <img src="/images/logo.png" alt="Logo" class="logo" />
       <div>
         <a href="/"><button>Home</button></a>
         <a href="/debugPage"><button>Debug DB</button></a>
@@ -18,8 +18,8 @@
         </form>
         <% } else { %>
         <a href="/users/login"><button>Login</button></a>
-        <% } %>
         <a href="/users/register"><button>Register</button></a>
+        <% } %>
       </div>
     </nav>
 
@@ -27,7 +27,16 @@
     <a href="/subs/list" class="a">back to list</a><br />
 
     <h2>Top Articles</h2>
-    <p><%- include('orderby') %></p>
+    <div class="dropdown">
+      <select onchange="orderingCb(articles)">
+        <option value="new" <%= ordering === 'new' ? 'selected' : '' %>>New</option>
+        <option value="old" <%= ordering === 'old' ? 'selected' : '' %>>Old</option>
+      </select>
+      <select onchange="orderingCb(vote)">
+        <option value="top" <%= ordering === 'top' ? 'selected' : '' %>>Top</option>
+        <option value="down" <%= ordering === 'down' ? 'selected' : '' %>>down</option>
+      </select>
+  </div>
     <ul>
       <% for (let i = 0; i < articles.length; i++) { %>
       <li>
@@ -40,6 +49,7 @@
         </form>
         <% } %>
         <a href="/articles/show/<%= articles[i].id %>"><%= articles[i].title %></a>
+        (<%= new Date(articles[i].ts) %>)
       </li>
       <% } %>
     </ul>

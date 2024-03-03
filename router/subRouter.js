@@ -21,6 +21,22 @@ router.get("/show/:sub", (req, res) => {
     const articleVotes = [];
     const voter = db.users.get_byUsername(username);
 
+    const ordering = req.query.order_by || "new";
+
+    const sortForNew = (a, b) => b.ts - a.ts;
+    const sortForOld = (a, b) => a.ts - b.ts;
+    const sortVoteUP = (a, b) => b.votes - a.votes;
+    const sortVoteDown = (a, b) => a.votes - b.votes;
+
+    let orderingCb = sortForNew;
+    if ("need condition") {
+      orderingCb = sortForOld;
+    } else if ("need condition") {
+      orderingCb = sortVoteUP;
+    } else if ("need condition") {
+      orderingCb = sortVoteDown;
+    }
+
     const detailedArticles = [];
 
     for (const article of articles) {
@@ -29,12 +45,11 @@ router.get("/show/:sub", (req, res) => {
         withCreator: true,
         withVotes: true,
         withCurrentVote: voter,
-        // order_by: best_ordering_callback,
+        order_by: orderingCb,
       });
 
       const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
       articleVotes.push(articleVote);
-
       detailedArticles.push(articleDetail);
     }
 
@@ -44,6 +59,7 @@ router.get("/show/:sub", (req, res) => {
       article: detailedArticles,
       vote: articleVotes,
       username,
+      ordering,
     });
   } catch (error) {
     res.render("error", { msg: "Error fetching subreddit list" });

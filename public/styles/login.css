@@ -1,0 +1,78 @@
+@font-face {
+  font-family: "Reddit";
+  src: url("/fonts/RedditSans-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Reddit";
+  margin: 10px;
+  padding: 10px;
+  background-color: #f4f4f4;
+  color: #000000;
+}
+
+header {
+  background-color: #ee6e06;
+  color: #fff;
+  padding: 5px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+nav a {
+  text-decoration: none;
+  color: #333;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: 2px solid #ee6e06;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+form {
+  max-width: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+form button {
+  font-family: "Reddit";
+  width: 100%;
+  padding: 10px;
+  background-color: #ee6e06;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+nav a:hover {
+  background-color: #ee6e06;
+}
+
+button:hover {
+  background-color: rgb(0, 0, 0);
+}
+
+.logo {
+  max-width: 150px;
+  height: auto;
+}

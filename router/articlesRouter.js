@@ -2,35 +2,29 @@ const express = require("express");
 const router = express.Router();
 const db = require("../reddit-fake-db-exemp");
 
-//Show article
+// Show article
 router.get("/show/:id", (req, res) => {
-  const sortForNew = (a, b) => {
-    return b.ts - a.ts;
-  };
-  const sortForOld = (a, b) => {
-    return a.ts - b.ts;
-  };
-  const sortVoteUP = (a, b) => {
-    return b.votes - a.votes;
-  };
-  const sortVoteDown = (a, b) => {
-    return a.votes - b.votes;
-  };
-
-  const ts = Date.now();
-  let orderingCb = sortForNew;
-  if ("need condition") {
-    orderingCb = sortForOld;
-  } else if ("need condition") {
-    orderingCb = sortVoteUP;
-  } else if ("need condition") {
-    orderingCb = sortVoteDown;
-  }
-
   try {
     const username = req.session.user || null;
     const voter = db.users.get_byUsername(username);
     const articleId = req.params.id;
+
+    const ordering = req.query.order_by || "new";
+
+    const sortForNew = (a, b) => b.ts - a.ts;
+    const sortForOld = (a, b) => a.ts - b.ts;
+    const sortVoteUP = (a, b) => b.votes - a.votes;
+    const sortVoteDown = (a, b) => a.votes - b.votes;
+
+    let orderingCb = sortForNew;
+    if ("need condition") {
+      orderingCb = sortForOld;
+    } else if ("need condition") {
+      orderingCb = sortVoteUP;
+    } else if ("need condition") {
+      orderingCb = sortVoteDown;
+    }
+
     const articleDetail = db.articles.get_byId(articleId, {
       withComments: true,
       withCreator: true,
@@ -39,18 +33,17 @@ router.get("/show/:id", (req, res) => {
       order_by: orderingCb,
     });
 
+    // console.log("1", articleDetail.ts, articleDetail.upvotes - articleDetail.downvotes);
+
     const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
 
     if (!articleDetail || !articleDetail.comments || !articleDetail.creator) {
       return res.render("error", { msg: "Invalid article" });
     }
 
-    //.some : Check if at least one element in array satisfies a condition and return true.
-    //.map : loop, Check each element in array ex)true, false, false, false
     const imageExtensions = [".jpg", ".jpeg", ".gif", ".png"];
     const isImage = imageExtensions.some((extension) => articleDetail.link.toLowerCase().endsWith(extension));
 
-    //show comments under article
     const articleComments = articleDetail.comments;
     let commentVote = [];
     for (let i = 0; i < articleComments.length; i++) {
@@ -67,6 +60,7 @@ router.get("/show/:id", (req, res) => {
       voter: voter ? voter.username : null,
       commentVote: commentVote,
       articleVote: articleVote,
+      ordering,
     });
   } catch (error) {
     console.error(error);
@@ -74,30 +68,45 @@ router.get("/show/:id", (req, res) => {
   }
 });
 
-//Vote article
+// Vote article
 router.post("/vote/:id/:votevalue", (req, res) => {
-  const username = req.session.user;
-  const voter = db.users.get_byUsername(username);
+  try {
+    const username = req.session.user;
+    const voter = db.users.get_byUsername(username);
 
-  const articleId = req.params.id;
-  const voteValue = req.params.votevalue;
-  const article = db.articles.get_byId(articleId);
-  console.log({ voter });
-  const currentVote = db.articles.get_vote({ article, voter });
-  if (currentVote) {
-    if (currentVote.vote_value === Number(voteValue)) {
-      db.articles.remove_vote({ article, voter });
+    if (!voter) {
+      throw new Error("User not found");
+    }
+
+    const articleId = req.params.id;
+    const voteValue = req.params.votevalue;
+    const article = db.articles.get_byId(articleId);
+
+    if (!article) {
+      throw new Error("Article not found");
+    }
+
+    const currentVote = db.articles.get_vote({ article, voter });
+
+    if (currentVote) {
+      if (currentVote.vote_value === Number(voteValue)) {
+        db.articles.remove_vote({ article, voter });
+      } else {
+        db.articles.set_vote({ article, voter, vote_value: Number(voteValue) });
+      }
     } else {
       db.articles.set_vote({ article, voter, vote_value: Number(voteValue) });
     }
-  } else {
-    db.articles.set_vote({ article, voter, vote_value: Number(voteValue) });
+
+    const referer = req.header("Referer") || "/articles/show/" + articleId;
+    res.redirect(referer);
+  } catch (error) {
+    console.error(error.message);
+    res.render("error", { msg: "Error article vote" });
   }
-  const referer = req.header("Referer") || "/comments/show/" + articleId;
-  res.redirect(referer);
 });
 
-//Create new article page
+// Create new article page
 router.get("/create/:sub", (req, res) => {
   try {
     const username = req.session.user;
@@ -107,7 +116,8 @@ router.get("/create/:sub", (req, res) => {
     res.render("error", { msg: "Error rendering article creation page" });
   }
 });
-//Create new article
+
+// Create new article
 router.post("/create/:id", (req, res) => {
   try {
     const id = req.params.id;
@@ -123,7 +133,7 @@ router.post("/create/:id", (req, res) => {
   }
 });
 
-//Edit article page
+// Edit article page
 router.get("/edit/:id", (req, res) => {
   try {
     const username = req.session.user;
@@ -134,6 +144,7 @@ router.get("/edit/:id", (req, res) => {
     res.render("error", { msg: "Error rendering article editing page" });
   }
 });
+
 //Edit article
 router.post("/edit/:id", (req, res) => {
   try {
@@ -165,6 +176,7 @@ router.get("/delete/:article", (req, res) => {
     res.render("error", { msg: "Error rendering article deletion page" });
   }
 });
+
 //Delete article
 router.post("/delete/:article", (req, res) => {
   try {
