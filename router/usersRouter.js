@@ -75,8 +75,8 @@ router.post("/register", (req, res) => {
 
 router.get("/profile/:id", (req, res) => {
   try {
-    const username = req.session.user; //sol
-    const user = req.params.id; //sol
+    const username = req.session.user;
+    const user = req.params.id;
     const userInfo = db.users.get_byUsername(user);
     const userId = userInfo.id;
 
@@ -87,15 +87,15 @@ router.get("/profile/:id", (req, res) => {
 
     const sortForNew = (a, b) => b.ts - a.ts;
     const sortForOld = (a, b) => a.ts - b.ts;
-    const sortVoteUP = (a, b) => b.votes - a.votes;
-    const sortVoteDown = (a, b) => a.votes - b.votes;
+    const sortVoteUP = (a, b) => b.upvotes + b.downvotes - (a.upvotes + a.downvotes);
+    const sortVoteDown = (a, b) => a.upvotes + a.downvotes - (b.upvotes + b.downvotes);
 
     let orderingCb = sortForNew;
-    if ("need condition") {
+    if (ordering === "old") {
       orderingCb = sortForOld;
-    } else if ("need condition") {
+    } else if (ordering === "top") {
       orderingCb = sortVoteUP;
-    } else if ("need condition") {
+    } else if (ordering === "down") {
       orderingCb = sortVoteDown;
     }
 
@@ -107,7 +107,6 @@ router.get("/profile/:id", (req, res) => {
       withCurrentVote: userInfo,
       order_by: orderingCb,
     });
-    // console.log(typeof userDetail, userDetail);
 
     const articles = userDetail.articles;
     const articleVote = articles.map((article) => ({
@@ -117,6 +116,7 @@ router.get("/profile/:id", (req, res) => {
     }));
 
     const comments = userDetail.comments;
+
     const commentVote = comments.map((comment) => ({
       upvotes: comment.upvotes,
       downvotes: comment.downvotes,
@@ -132,7 +132,7 @@ router.get("/profile/:id", (req, res) => {
       comment: comments,
       comments: profileComment,
       commentVote: commentVote,
-      ordering,
+      ordering: userDetail,
     });
   } catch (error) {
     res.render("error", { msg: "Error rendering user profile" });

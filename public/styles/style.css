@@ -26,7 +26,8 @@ nav {
   margin: 10px;
 }
 
-.login {
+.login,
+.comment {
   text-decoration: none;
   font-weight: bold;
   color: #ee6e06;
@@ -38,22 +39,33 @@ nav {
   margin: 2px;
   border-radius: 0px;
 }
-
 .up:hover,
 .upvoted {
   background-color: #008000;
+  font-size: x-small;
+  margin: 2px;
+  border-radius: 0px;
 }
-
 .down {
   border: 2px solid rgb(249, 48, 48);
   font-size: x-small;
   margin: 2px;
   border-radius: 0px;
 }
-
 .down:hover,
 .downvoted {
   background-color: rgb(249, 48, 48);
+  font-size: x-small;
+  margin: 2px;
+  border-radius: 0px;
+}
+.comment-container {
+  display: flex;
+  text-align: center;
+}
+#value {
+  width: 20px;
+  text-align: center;
 }
 
 nav button,
@@ -78,6 +90,12 @@ button:hover {
 .logo {
   max-width: 150px;
   height: auto;
+}
+
+img:not(.logo) {
+  width: 50%;
+  height: 30%;
+  margin: 2px;
 }
 
 .centered-buttons {

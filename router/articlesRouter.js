@@ -9,30 +9,35 @@ router.get("/show/:id", (req, res) => {
     const voter = db.users.get_byUsername(username);
     const articleId = req.params.id;
 
-    const ordering = req.query.order_by || "new";
+    const ordering = req.query.ordering || "new";
 
-    const sortForNew = (a, b) => b.ts - a.ts;
-    const sortForOld = (a, b) => a.ts - b.ts;
-    const sortVoteUP = (a, b) => b.votes - a.votes;
-    const sortVoteDown = (a, b) => a.votes - b.votes;
+    const getOrdered = (ordering, articles) => {
+      const sortForNew = (a, b) => b.ts - a.ts;
+      const sortForOld = (a, b) => a.ts - b.ts;
+      const sortVoteUP = (a, b) => b.votes - a.votes;
+      const sortVoteDown = (a, b) => a.votes - b.votes;
 
-    let orderingCb = sortForNew;
-    if ("need condition") {
-      orderingCb = sortForOld;
-    } else if ("need condition") {
-      orderingCb = sortVoteUP;
-    } else if ("need condition") {
-      orderingCb = sortVoteDown;
-    }
+      let orderingCb = sortForNew;
+      if (ordering === "old") {
+        orderingCb = sortForOld;
+      } else if (ordering === "top") {
+        orderingCb = sortVoteUP;
+      } else if (ordering === "down") {
+        orderingCb = sortVoteDown;
+      }
+
+      const orderedArticles = [articles].sort(orderingCb);
+      return orderedArticles;
+    };
 
     const articleDetail = db.articles.get_byId(articleId, {
       withComments: true,
       withCreator: true,
       withVotes: true,
       withCurrentVote: voter,
-      order_by: orderingCb,
+      order_by: (articles) => getOrdered(ordering, articles),
     });
-
+    // console.log(articleDetail.order_by);//undefined
     // console.log("1", articleDetail.ts, articleDetail.upvotes - articleDetail.downvotes);
 
     const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
@@ -60,7 +65,7 @@ router.get("/show/:id", (req, res) => {
       voter: voter ? voter.username : null,
       commentVote: commentVote,
       articleVote: articleVote,
-      ordering,
+      ordering: articleDetail.order_by,
     });
   } catch (error) {
     console.error(error);

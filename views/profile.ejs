@@ -4,15 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
-    <link rel="stylesheet" href="/styles/profile.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
   </head>
 
   <body>
     <nav>
-      <img src="/images/logo.png" alt="Logo" class="logo" />
+      <a href="/"><img src="/images/logo.png" alt="Logo" class="logo" /></a>
       <div>
         <a href="/"><button>Home</button></a>
         <a href="/debugPage"><button>Debug DB</button></a>
+
         <% if(user) { %> You are logged in <a href="/users/profile/<%=user%>" class="login"><%=user%></a>
         <form action="/users/logout" method="post">
           <button type="submit">Logout</button>
@@ -27,24 +28,46 @@
     <h1><%= user %>'s profile</h1>
 
     <h2>Articles:</h2>
-    <div class="dropdown">
-      <select onchange="orderingCb(articles)">
-        <option value="new" <%= ordering === 'new' ? 'selected' : '' %>>New</option>
-        <option value="old" <%= ordering === 'old' ? 'selected' : '' %>>Old</option>
-      </select>
-      <select onchange="orderingCb(articleVote)">
-        <option value="top" <%= ordering === 'top' ? 'selected' : '' %>>Top</option>
-        <option value="down" <%= ordering === 'down' ? 'selected' : '' %>>down</option>
-      </select>
-  </div>
+    <form method="get" action="<%= `/users/profile/${user}?order_by=${ordering}` %>">
+      <div class="dropdown">
+        <select onchange="orderingCb(this.value)">
+          <option value="new" onclick="sortByNew">New</option>
+          <option value="old" onclick="sortByOld">Old</option>
+          <option value="top" onclick="sortByTop">Top</option>
+          <option value="down" onclick="sortByDown">down</option>
+        </select>
+        <script>
+          function sortArticle(a, b) {
+            let sortArticles = articles.ts;
+            sortArticles.sort((a, b) => ts(a.ts, b.ts).map((ts) => articles.appendChild(sortArticles)));
+          }
+          function sortByNew(articles, ts) {
+            sortArticle(0, (a, b) => a - b);
+          }
+          function sortByOld(articles, ts) {
+            sortArticle(0, (a, b) => b - a);
+          }
+          function sortArticleVote(a, b) {
+            let sortArticleVote = articleVote;
+            sortArticleVote.sort((a, b) => ts(a.totalVotes, b.totalVotes).map((ts) => articles.appendChild(sortArticles)));
+          }
+          function sortByTop(articleVote, totalVotes) {
+            sortArticleVote(0, (a, b) => a - b);
+          }
+          function sortByDown(articleVote, totalVotes) {
+            sortArticleVote(0, (a, b) => b - a);
+          }
+        </script>
+      </div>
+    </form>
     <ul>
       <% for (let i = 0; i < articles.length; i++) { %>
       <li>
         <%= articleVote[i].totalVotes %> <% if (username) { %>
-        <form method="post" action="/articles/vote/<%= articles[i].id %>/<%= +1 %>">
+        <form method="post" action="/articles/vote/<%= article[i].id %>/<%= +1 %>">
           <button type="submit" class="up <%= article[i].current_vote?.vote_value === 1 ? 'upvoted' : '' %>">↑</button>
         </form>
-        <form method="post" action="/articles/vote/<%= articles[i].id %>/<%= -1 %>">
+        <form method="post" action="/articles/vote/<%= article[i].id %>/<%= -1 %>">
           <button type="submit" class="down <%= article[i].current_vote?.vote_value === -1 ? 'downvoted' : '' %>">↓</button>
         </form>
         <% } %>
@@ -53,29 +76,31 @@
       </li>
       <% } %>
     </ul>
+
     <h2>Comments:</h2>
-    <div class="dropdown">
-      <select onchange="orderingCb(comments)">
-        <option value="new" <%= ordering === 'new' ? 'selected' : '' %>>New</option>
-        <option value="old" <%= ordering === 'old' ? 'selected' : '' %>>Old</option>
-      </select>
-      <select onchange="orderingCb(commentVote)">
-        <option value="top" <%= ordering === 'top' ? 'selected' : '' %>>Top</option>
-        <option value="down" <%= ordering === 'down' ? 'selected' : '' %>>down</option>
-      </select>
-  </div>
+    <form method="get" action="<%= `/users/profile/${user}?order_by=${ordering}` %>">
+      <div class="dropdown">
+        <select onchange="orderingCb(this.value)">
+          <option value="new">New</option>
+          <option value="old">Old</option>
+          <option value="top">Top</option>
+          <option value="down">down</option>
+        </select>
+      </div>
+    </form>
     <ul>
       <% for (let i = 0; i < comments.length; i++) { %>
       <li>
         <%= commentVote[i].totalVotes %> <% if (username) { %>
-        <form method="post" action="/comments/vote/<%= comments[i].id%>/<%= +1 %>">
+        <form method="post" action="/comments/vote/<%= comment[i].id%>/<%= +1 %>">
           <button type="submit" class="up <%= comment[i].current_vote?.vote_value === 1 ? 'upvoted' : '' %>">↑</button>
         </form>
-        <form method="post" action="/comments/vote/<%= comments[i].id %>/<%= -1 %>">
+        <form method="post" action="/comments/vote/<%= comment[i].id %>/<%= -1 %>">
           <button type="submit" class="down <%= comment[i].current_vote?.vote_value === -1 ? 'downvoted' : '' %>">↓</button>
         </form>
-        <% } %> <%= new Date(comments[i].ts) %> :
+        <% } %>
         <a href="/comments/show/<%= comments[i].id %>"><%= comments[i].text %></a>
+        (<%= new Date(comments[i].ts) %>)
       </li>
       <% } %>
     </ul>
