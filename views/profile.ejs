@@ -28,38 +28,17 @@
     <h1><%= user %>'s profile</h1>
 
     <h2>Articles:</h2>
-    <form method="get" action="<%= `/users/profile/${user}?order_by=${ordering}` %>">
+    <!-- <form id="orderForm" method="get" action="" data-user="<%= user %>">
       <div class="dropdown">
-        <select onchange="orderingCb(this.value)">
-          <option value="new" onclick="sortByNew">New</option>
-          <option value="old" onclick="sortByOld">Old</option>
-          <option value="top" onclick="sortByTop">Top</option>
-          <option value="down" onclick="sortByDown">down</option>
+        <select id="orderSelect">
+          <option value="new">New</option>
+          <option value="old">Old</option>
+          <option value="top">Top</option>
+          <option value="down">Down</option>
         </select>
-        <script>
-          function sortArticle(a, b) {
-            let sortArticles = articles.ts;
-            sortArticles.sort((a, b) => ts(a.ts, b.ts).map((ts) => articles.appendChild(sortArticles)));
-          }
-          function sortByNew(articles, ts) {
-            sortArticle(0, (a, b) => a - b);
-          }
-          function sortByOld(articles, ts) {
-            sortArticle(0, (a, b) => b - a);
-          }
-          function sortArticleVote(a, b) {
-            let sortArticleVote = articleVote;
-            sortArticleVote.sort((a, b) => ts(a.totalVotes, b.totalVotes).map((ts) => articles.appendChild(sortArticles)));
-          }
-          function sortByTop(articleVote, totalVotes) {
-            sortArticleVote(0, (a, b) => a - b);
-          }
-          function sortByDown(articleVote, totalVotes) {
-            sortArticleVote(0, (a, b) => b - a);
-          }
-        </script>
       </div>
-    </form>
+    </form> -->
+
     <ul>
       <% for (let i = 0; i < articles.length; i++) { %>
       <li>
@@ -78,16 +57,17 @@
     </ul>
 
     <h2>Comments:</h2>
-    <form method="get" action="<%= `/users/profile/${user}?order_by=${ordering}` %>">
+    <!-- <form id="commentOrderForm" method="get" action="" data-user="<%= user %>">
       <div class="dropdown">
-        <select onchange="orderingCb(this.value)">
+        <select id="commentOrderSelect">
           <option value="new">New</option>
           <option value="old">Old</option>
           <option value="top">Top</option>
-          <option value="down">down</option>
+          <option value="down">Down</option>
         </select>
       </div>
-    </form>
+    </form> -->
+
     <ul>
       <% for (let i = 0; i < comments.length; i++) { %>
       <li>
@@ -104,5 +84,44 @@
       </li>
       <% } %>
     </ul>
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const articleOrderForm = document.getElementById("orderForm");
+        const articleOrderSelectElement = document.getElementById("orderSelect");
+
+        if (articleOrderForm && articleOrderSelectElement) {
+          articleOrderForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const user = articleOrderForm.getAttribute("data-user");
+            const ordering = articleOrderSelectElement.value;
+            const baseUrl = `/users/profile/${user}`;
+            const newUrl = `${baseUrl}?order_by=${ordering}`;
+            window.location.href = newUrl;
+          });
+
+          articleOrderSelectElement.addEventListener("change", function () {
+            articleOrderForm.submit();
+          });
+        }
+
+        const commentOrderForm = document.getElementById("commentOrderForm");
+        const commentOrderSelectElement = document.getElementById("commentOrderSelect");
+
+        if (commentOrderForm && commentOrderSelectElement) {
+          commentOrderForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const user = commentOrderForm.getAttribute("data-user");
+            const ordering = commentOrderSelectElement.value;
+            const baseUrl = `/users/profile/${user}`;
+            const newUrl = `${baseUrl}?order_by=${ordering}`;
+            window.location.href = newUrl;
+          });
+
+          commentOrderSelectElement.addEventListener("change", function () {
+            commentOrderForm.submit();
+          });
+        }
+      });
+    </script> -->
   </body>
 </html>

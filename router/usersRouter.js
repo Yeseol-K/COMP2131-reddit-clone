@@ -73,6 +73,31 @@ router.post("/register", (req, res) => {
   }
 });
 
+//sorting functions
+const sortByNew = (value) => {
+  value.sort((a, b) => b.ts - a.ts);
+};
+const sortByOld = (value) => {
+  value.sort((a, b) => b.ts - b.ts);
+};
+const sortByTop = (value) => {
+  value.sort((a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes));
+};
+const sortByDown = (value) => {
+  value.sort((a, b) => a.upvotes - a.downvotes - (b.upvotes - b.downvotes));
+};
+const orderingCb = (value, order) => {
+  if (order === "new") {
+    sortByNew(value);
+  } else if (order === "old") {
+    sortByOld(value);
+  } else if (order === "top") {
+    sortByTop(articleVote);
+  } else if (order === "down") {
+    sortByDown(articleVote);
+  }
+};
+
 router.get("/profile/:id", (req, res) => {
   try {
     const username = req.session.user;
@@ -85,27 +110,13 @@ router.get("/profile/:id", (req, res) => {
 
     const ordering = req.query.order_by || "new";
 
-    const sortForNew = (a, b) => b.ts - a.ts;
-    const sortForOld = (a, b) => a.ts - b.ts;
-    const sortVoteUP = (a, b) => b.upvotes + b.downvotes - (a.upvotes + a.downvotes);
-    const sortVoteDown = (a, b) => a.upvotes + a.downvotes - (b.upvotes + b.downvotes);
-
-    let orderingCb = sortForNew;
-    if (ordering === "old") {
-      orderingCb = sortForOld;
-    } else if (ordering === "top") {
-      orderingCb = sortVoteUP;
-    } else if (ordering === "down") {
-      orderingCb = sortVoteDown;
-    }
-
     const userDetail = db.users.get_byId(userId, {
       withArticles: true,
       withComments: true,
       withCreator: true,
       withVotes: true,
       withCurrentVote: userInfo,
-      order_by: orderingCb,
+      // order_by: orderingCb,
     });
 
     const articles = userDetail.articles;
@@ -132,7 +143,7 @@ router.get("/profile/:id", (req, res) => {
       comment: comments,
       comments: profileComment,
       commentVote: commentVote,
-      ordering: userDetail,
+      // ordering: userDetail,
     });
   } catch (error) {
     res.render("error", { msg: "Error rendering user profile" });
