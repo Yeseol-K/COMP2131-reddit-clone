@@ -20,9 +20,7 @@ router.get("/show/:sub", (req, res) => {
     const articleVotes = [];
     const voter = db.users.get_byUsername(username);
 
-    const articles = db.articles.get_byFilter((article) => article.sub_name === sub);
     const order_by = req.query.ordering || "new";
-
     const getOrderFunction = (order) => {
       const orderFunctions = {
         top: (a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes),
@@ -34,6 +32,8 @@ router.get("/show/:sub", (req, res) => {
     };
 
     const orderFunction = getOrderFunction(order_by);
+    const articles = db.articles.get_byFilter((article) => article.sub_name === sub, { withVotes: true, order_by: orderFunction });
+    console.log("test", articles);
 
     const detailedArticles = [];
 
@@ -43,9 +43,7 @@ router.get("/show/:sub", (req, res) => {
         withCreator: true,
         withVotes: true,
         withCurrentVote: voter,
-        order_by: orderFunction,
       });
-
       const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
       articleVotes.push(articleVote);
       detailedArticles.push(articleDetail);

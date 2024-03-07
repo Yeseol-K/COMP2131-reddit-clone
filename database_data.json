@@ -27,6 +27,15 @@
       "ts": 1709780725583,
       "text": "Underrated, overcrazy"
     },
+    "4141": {
+      "id": "4141",
+      "sub_name": "dogpics",
+      "title": "test",
+      "creator_id": "5131",
+      "link": "ets",
+      "ts": 1709781910192,
+      "text": "ets"
+    },
     "5778": {
       "id": "5778",
       "sub_name": "catpics",
@@ -164,6 +173,11 @@
     "3305;4013": {
       "article_id": "4013",
       "voter_id": "3305",
+      "vote_value": 1
+    },
+    "5131;4054": {
+      "article_id": "4054",
+      "voter_id": "5131",
       "vote_value": 1
     }
   },
