@@ -73,31 +73,6 @@ router.post("/register", (req, res) => {
   }
 });
 
-//sorting functions
-const sortByNew = (value) => {
-  value.sort((a, b) => b.ts - a.ts);
-};
-const sortByOld = (value) => {
-  value.sort((a, b) => b.ts - b.ts);
-};
-const sortByTop = (value) => {
-  value.sort((a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes));
-};
-const sortByDown = (value) => {
-  value.sort((a, b) => a.upvotes - a.downvotes - (b.upvotes - b.downvotes));
-};
-const orderingCb = (value, order) => {
-  if (order === "new") {
-    sortByNew(value);
-  } else if (order === "old") {
-    sortByOld(value);
-  } else if (order === "top") {
-    sortByTop(articleVote);
-  } else if (order === "down") {
-    sortByDown(articleVote);
-  }
-};
-
 router.get("/profile/:id", (req, res) => {
   try {
     const username = req.session.user;
@@ -108,7 +83,19 @@ router.get("/profile/:id", (req, res) => {
     const profileArticle = db.articles.get_byFilter((article) => article.creator_id === userId);
     const profileComment = db.comments.get_byFilter((comment) => comment.creator_id === userId);
 
-    const ordering = req.query.order_by || "new";
+    //sorting functions
+    const order_by = req.query.ordering || "new";
+
+    const getOrderFunction = (order) => {
+      const orderFunctions = {
+        top: (a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes),
+        ragebait: (a, b) => a.upvotes - a.downvotes - (b.upvotes - b.downvotes),
+        new: (a, b) => b.ts - a.ts,
+        old: (a, b) => a.ts - b.ts,
+      };
+      return orderFunctions[order];
+    };
+    const orderFunction = getOrderFunction(order_by);
 
     const userDetail = db.users.get_byId(userId, {
       withArticles: true,
@@ -116,7 +103,7 @@ router.get("/profile/:id", (req, res) => {
       withCreator: true,
       withVotes: true,
       withCurrentVote: userInfo,
-      // order_by: orderingCb,
+      order_by: orderFunction,
     });
 
     const articles = userDetail.articles;
@@ -139,11 +126,11 @@ router.get("/profile/:id", (req, res) => {
       user,
       article: articles,
       articles: profileArticle,
-      articleVote: articleVote,
+      articleVote,
       comment: comments,
       comments: profileComment,
-      commentVote: commentVote,
-      // ordering: userDetail,
+      commentVote,
+      ordering: order_by,
     });
   } catch (error) {
     res.render("error", { msg: "Error rendering user profile" });

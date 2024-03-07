@@ -8,7 +8,7 @@
   </head>
   <body>
     <nav>
-           <a href="/"><img src="/images/logo.png" alt="Logo" class="logo" /></a>
+      <a href="/"><img src="/images/logo.png" alt="Logo" class="logo" /></a>
       <div>
         <a href="/"><button>Home</button></a>
         <a href="/debugPage"><button>Debug DB</button></a>
@@ -51,15 +51,20 @@
     <a href="/articles/edit/<%= article.id %>"><button>Edit</button></a>
     <a href="/articles/delete/<%= article.title %>"><button>Delete</button></a>
     <% } %> <% if (comments.length > 0) { %>
+
     <h1>Comments</h1>
+
     <div class="dropdown">
-      <select onchange="orderingCb(comment)">
-        <option value="new" <%= ordering === 'new' ? 'selected' : '' %>>New</option>
-        <option value="old" <%= ordering === 'old' ? 'selected' : '' %>>Old</option>
-        <option value="top" <%= ordering === 'top' ? 'selected' : '' %>>Top</option>
-        <option value="down" <%= ordering === 'down' ? 'selected' : '' %>>down</option>
-      </select>
-  </div>
+      <form action="/articles/show/<%= article.id %>">
+        <select name="ordering">
+          <option value="top">Top</option>
+          <option value="ragebait">Ragebait</option>
+          <option value="new">New</option>
+          <option value="old">old</option>
+        </select>
+        <button>submit</button>
+      </form>
+    </div>
 
     <% comments.forEach((comment, i) => { %>
     <div>

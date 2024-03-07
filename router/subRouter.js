@@ -15,27 +15,25 @@ router.get("/list", (req, res) => {
 
 router.get("/show/:sub", (req, res) => {
   try {
-    const username = req.session.user; // current login
-    const sub = req.params.sub; // sub name
-    const articles = db.articles.get_byFilter((article) => article.sub_name === sub);
+    const username = req.session.user;
+    const sub = req.params.sub;
     const articleVotes = [];
     const voter = db.users.get_byUsername(username);
 
-    const ordering = req.query.order_by || "new";
+    const articles = db.articles.get_byFilter((article) => article.sub_name === sub);
+    const order_by = req.query.ordering || "new";
 
-    const sortForNew = (a, b) => b.ts - a.ts;
-    const sortForOld = (a, b) => a.ts - b.ts;
-    const sortVoteUP = (a, b) => b.votes - a.votes;
-    const sortVoteDown = (a, b) => a.votes - b.votes;
+    const getOrderFunction = (order) => {
+      const orderFunctions = {
+        top: (a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes),
+        ragebait: (a, b) => a.upvotes - a.downvotes - (b.upvotes - b.downvotes),
+        new: (a, b) => b.ts - a.ts,
+        old: (a, b) => a.ts - b.ts,
+      };
+      return orderFunctions[order];
+    };
 
-    let orderingCb = sortForNew;
-    if ("need condition") {
-      orderingCb = sortForOld;
-    } else if ("need condition") {
-      orderingCb = sortVoteUP;
-    } else if ("need condition") {
-      orderingCb = sortVoteDown;
-    }
+    const orderFunction = getOrderFunction(order_by);
 
     const detailedArticles = [];
 
@@ -45,7 +43,7 @@ router.get("/show/:sub", (req, res) => {
         withCreator: true,
         withVotes: true,
         withCurrentVote: voter,
-        order_by: orderingCb,
+        order_by: orderFunction,
       });
 
       const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
@@ -59,7 +57,7 @@ router.get("/show/:sub", (req, res) => {
       article: detailedArticles,
       vote: articleVotes,
       username,
-      ordering,
+      ordering: order_by,
     });
   } catch (error) {
     res.render("error", { msg: "Error fetching subreddit list" });

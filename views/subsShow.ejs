@@ -8,7 +8,7 @@
   </head>
   <body>
     <nav>
-           <a href="/"><img src="/images/logo.png" alt="Logo" class="logo" /></a>
+      <a href="/"><img src="/images/logo.png" alt="Logo" class="logo" /></a>
       <div>
         <a href="/"><button>Home</button></a>
         <a href="/debugPage"><button>Debug DB</button></a>
@@ -28,15 +28,16 @@
 
     <h2>Top Articles</h2>
     <div class="dropdown">
-      <select onchange="orderingCb(articles)">
-        <option value="new" <%= ordering === 'new' ? 'selected' : '' %>>New</option>
-        <option value="old" <%= ordering === 'old' ? 'selected' : '' %>>Old</option>
-      </select>
-      <select onchange="orderingCb(vote)">
-        <option value="top" <%= ordering === 'top' ? 'selected' : '' %>>Top</option>
-        <option value="down" <%= ordering === 'down' ? 'selected' : '' %>>down</option>
-      </select>
-  </div>
+      <form action="/subs/show/<%= sub %>">
+        <select name="ordering">
+          <option value="top">Top</option>
+          <option value="ragebait">Ragebait</option>
+          <option value="new">New</option>
+          <option value="old">old</option>
+        </select>
+        <button>submit</button>
+      </form>
+    </div>
     <ul>
       <% for (let i = 0; i < articles.length; i++) { %>
       <li>

@@ -8,37 +8,26 @@ router.get("/show/:id", (req, res) => {
     const username = req.session.user || null;
     const voter = db.users.get_byUsername(username);
     const articleId = req.params.id;
+    const order_by = req.query.ordering || "new";
 
-    const ordering = req.query.ordering || "new";
-
-    const getOrdered = (ordering, articles) => {
-      const sortForNew = (a, b) => b.ts - a.ts;
-      const sortForOld = (a, b) => a.ts - b.ts;
-      const sortVoteUP = (a, b) => b.votes - a.votes;
-      const sortVoteDown = (a, b) => a.votes - b.votes;
-
-      let orderingCb = sortForNew;
-      if (ordering === "old") {
-        orderingCb = sortForOld;
-      } else if (ordering === "top") {
-        orderingCb = sortVoteUP;
-      } else if (ordering === "down") {
-        orderingCb = sortVoteDown;
-      }
-
-      const orderedArticles = [articles].sort(orderingCb);
-      return orderedArticles;
+    const getOrderFunction = (order) => {
+      const orderFunctions = {
+        top: (a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes),
+        ragebait: (a, b) => a.upvotes - a.downvotes - (b.upvotes - b.downvotes),
+        new: (a, b) => b.ts - a.ts,
+        old: (a, b) => a.ts - b.ts,
+      };
+      return orderFunctions[order];
     };
+    const orderFunction = getOrderFunction(order_by);
 
     const articleDetail = db.articles.get_byId(articleId, {
       withComments: true,
       withCreator: true,
       withVotes: true,
       withCurrentVote: voter,
-      order_by: (articles) => getOrdered(ordering, articles),
+      order_by: orderFunction,
     });
-    // console.log(articleDetail.order_by);//undefined
-    // console.log("1", articleDetail.ts, articleDetail.upvotes - articleDetail.downvotes);
 
     const articleVote = Number(articleDetail.upvotes - articleDetail.downvotes);
 
@@ -65,7 +54,7 @@ router.get("/show/:id", (req, res) => {
       voter: voter ? voter.username : null,
       commentVote: commentVote,
       articleVote: articleVote,
-      ordering: articleDetail.order_by,
+      ordering: order_by,
     });
   } catch (error) {
     console.error(error);
