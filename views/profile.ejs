@@ -27,15 +27,7 @@
 
     <h1><%= user %>'s profile</h1>
 
-    <form action="/users/profile/<%= username %>">
-      <select name="ordering">
-        <option value="top">Top</option>
-        <option value="ragebait">Ragebait</option>
-        <option value="new">New</option>
-        <option value="old">old</option>
-      </select>
-      <button>submit</button>
-    </form>
+    <form action="/users/profile/<%= username %>"><%- include('order_by') %></form>
 
     <h2>Articles:</h2>
 

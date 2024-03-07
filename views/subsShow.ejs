@@ -27,17 +27,7 @@
     <a href="/subs/list" class="a">back to list</a><br />
 
     <h2>Top Articles</h2>
-    <div class="dropdown">
-      <form action="/subs/show/<%= sub %>">
-        <select name="ordering">
-          <option value="top">Top</option>
-          <option value="ragebait">Ragebait</option>
-          <option value="new">New</option>
-          <option value="old">old</option>
-        </select>
-        <button>submit</button>
-      </form>
-    </div>
+    <form action="/subs/show/<%= sub %>"><%- include('order_by') %></form>
     <ul>
       <% for (let i = 0; i < articles.length; i++) { %>
       <li>

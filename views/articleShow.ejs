@@ -53,18 +53,7 @@
     <% } %> <% if (comments.length > 0) { %>
 
     <h1>Comments</h1>
-
-    <div class="dropdown">
-      <form action="/articles/show/<%= article.id %>">
-        <select name="ordering">
-          <option value="top">Top</option>
-          <option value="ragebait">Ragebait</option>
-          <option value="new">New</option>
-          <option value="old">old</option>
-        </select>
-        <button>submit</button>
-      </form>
-    </div>
+    <form action="/articles/show/<%= article.id %>"><%- include('order_by') %></form>
 
     <% comments.forEach((comment, i) => { %>
     <div>

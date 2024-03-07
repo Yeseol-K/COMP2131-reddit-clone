@@ -33,7 +33,6 @@ router.get("/show/:sub", (req, res) => {
 
     const orderFunction = getOrderFunction(order_by);
     const articles = db.articles.get_byFilter((article) => article.sub_name === sub, { withVotes: true, order_by: orderFunction });
-    console.log("test", articles);
 
     const detailedArticles = [];
 
