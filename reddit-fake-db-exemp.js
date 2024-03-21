@@ -1,11 +1,6 @@
 const bcrypt = require("bcrypt");
 const fs = require("fs");
 
-// Do not export the entire "DB", nor the "database tables".
-// You can't export database tables when you're using a real database.
-// I'm trying to teach you patterns that will work in a real database.
-// Yes, it's kind of a pain, but not too bad.
-
 const DB_FILE_NAME = "./database_data.json";
 const DB = {};
 const whitelist_of_tables = ["subs", "articles", "comments", "users", "articles_votes", "comments_votes", "mods"];
